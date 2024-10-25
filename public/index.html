@@ -41,6 +41,28 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+<script>
+    mermaid.initialize({ startOnLoad: true, theme: 'forest' });
+    mermaid.init(undefined, document.querySelectorAll(".mermaid"));
+</script>
+<script>
+    
+    Array.from(document.getElementsByClassName("language-mermaid")).forEach(
+        (el) => {
+            el.parentElement.outerHTML = `<div class="mermaid">${el.innerText}</div>`;
+        }
+    );
+</script>
+<style>
+     
+    .mermaid svg {
+        display: block;
+        margin: auto;
+    }
+</style>
+
 <meta property="og:url" content="http://localhost:1313/">
   <meta property="og:site_name" content="Tenfar Blog">
   <meta property="og:title" content="Tenfar Blog">
@@ -326,29 +348,6 @@
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
-
-
-
-<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
-<script>
-    mermaid.initialize({ startOnLoad: true, theme: 'forest' });
-    mermaid.init(undefined, document.querySelectorAll(".mermaid"));
-</script>
-<script>
-    
-    Array.from(document.getElementsByClassName("language-mermaid")).forEach(
-        (el) => {
-            el.parentElement.outerHTML = `<div class="mermaid">${el.innerText}</div>`;
-        }
-    );
-</script>
-<style>
-     
-    .mermaid svg {
-        display: block;
-        margin: auto;
-    }
-</style>
 
 
 
