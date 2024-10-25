@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>分库分表 on Tenfar Blog</title>
+    <link>http://localhost:1313/tags/%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8/</link>
+    <description>Recent content in 分库分表 on Tenfar Blog</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <copyright>Tenfar</copyright>
+    <lastBuildDate>Fri, 25 Oct 2024 11:01:26 +0800</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>深度翻页优化：分库分表后的高效查询策略</title>
+      <link>http://localhost:1313/post/deep-paginatin-problems/</link>
+      <pubDate>Fri, 25 Oct 2024 11:01:26 +0800</pubDate>
+      <guid>http://localhost:1313/post/deep-paginatin-problems/</guid>
+      <description>&lt;p&gt;在现代大规模数据应用中，分库分表已成为提升数据库性能的常见策略。然而，随着数据量的增长，深度翻页查询（即高偏移量的分页查询）成为了一个棘手的问题。本文将详细探讨在分库分表场景下，如何优化深度翻页查询，提供实际可操作的解决方案。&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
