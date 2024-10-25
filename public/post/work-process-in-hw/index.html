@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>华为项目开发流程详解 - Tenfar Blog</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Tenfar" /><meta name="description" content="华为项目开发流程详解" /><meta name="keywords" content="华为, 项目开发流程" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.136.5 with theme even" />
+
+
+<link rel="canonical" href="http://localhost:1313/post/work-process-in-hw/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.cb68f97bc9cece255d217346d970e3c62623408634e500c330a62fadabbbe77c.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:url" content="http://localhost:1313/post/work-process-in-hw/">
+  <meta property="og:site_name" content="Tenfar Blog">
+  <meta property="og:title" content="华为项目开发流程详解">
+  <meta property="og:description" content="华为项目开发流程详解">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2024-10-25T12:03:16+08:00">
+    <meta property="article:modified_time" content="2024-10-25T12:03:16+08:00">
+    <meta property="article:tag" content="华为">
+    <meta property="article:tag" content="项目开发流程">
+
+  <meta itemprop="name" content="华为项目开发流程详解">
+  <meta itemprop="description" content="华为项目开发流程详解">
+  <meta itemprop="datePublished" content="2024-10-25T12:03:16+08:00">
+  <meta itemprop="dateModified" content="2024-10-25T12:03:16+08:00">
+  <meta itemprop="wordCount" content="1703">
+  <meta itemprop="keywords" content="华为,项目开发流程">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="华为项目开发流程详解">
+  <meta name="twitter:description" content="华为项目开发流程详解">
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Tenfar</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Tenfar</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">华为项目开发流程详解</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2024-10-25 </span>
+        <div class="post-category">
+            <a href="/categories/%E6%8A%80%E6%9C%AF/"> 技术 </a>
+            </div>
+          <span class="more-meta"> 1703 words </span>
+          <span class="more-meta"> 4 mins read </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#华为项目开发流程详解">华为项目开发流程详解</a>
+      <ul>
+        <li><a href="#一立项阶段">一、立项阶段</a>
+          <ul>
+            <li><a href="#11-上会讨论">1.1 上会讨论</a></li>
+          </ul>
+        </li>
+        <li><a href="#二产品项目规划">二、产品/项目规划</a>
+          <ul>
+            <li><a href="#21-市场分析">2.1 市场分析</a></li>
+            <li><a href="#22-产品定位">2.2 产品定位</a></li>
+            <li><a href="#23-目标用户">2.3 目标用户</a></li>
+            <li><a href="#24-功能规划">2.4 功能规划</a></li>
+          </ul>
+        </li>
+        <li><a href="#三业务需求澄清阶段">三、业务需求澄清阶段</a>
+          <ul>
+            <li><a href="#31-业务价值讲解">3.1 业务价值讲解</a></li>
+            <li><a href="#32-需求文档编写">3.2 需求文档编写</a></li>
+            <li><a href="#33-需求理解和确认">3.3 需求理解和确认</a></li>
+            <li><a href="#34-反馈循环">3.4 反馈循环</a></li>
+          </ul>
+        </li>
+        <li><a href="#四环境准备阶段">四、环境准备阶段</a>
+          <ul>
+            <li><a href="#41-资源协调会议">4.1 资源协调会议</a></li>
+            <li><a href="#42-系统准备">4.2 系统准备</a></li>
+            <li><a href="#43-基础设施">4.3 基础设施</a></li>
+            <li><a href="#44-环境搭建">4.4 环境搭建</a></li>
+            <li><a href="#45-反馈处理">4.5 反馈处理</a></li>
+          </ul>
+        </li>
+        <li><a href="#五项目搭建阶段">五、项目搭建阶段</a>
+          <ul>
+            <li><a href="#51-技术架构">5.1 技术架构</a></li>
+            <li><a href="#52-项目结构">5.2 项目结构</a></li>
+            <li><a href="#53-基础设施搭建">5.3 基础设施搭建</a></li>
+            <li><a href="#54-系统集成">5.4 系统集成</a></li>
+          </ul>
+        </li>
+        <li><a href="#六开发阶段">六、开发阶段</a>
+          <ul>
+            <li><a href="#61-设计工作">6.1 设计工作</a></li>
+            <li><a href="#62-开发实现">6.2 开发实现</a></li>
+            <li><a href="#63-质量保证">6.3 质量保证</a></li>
+            <li><a href="#64-部署上线">6.4 部署上线</a></li>
+          </ul>
+        </li>
+        <li><a href="#七求助与支持">七、求助与支持</a>
+          <ul>
+            <li><a href="#71-内部支持">7.1 内部支持</a></li>
+            <li><a href="#72-外部资源">7.2 外部资源</a></li>
+            <li><a href="#73-问题解决">7.3 问题解决</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <pre><code class="language-mermaid">graph TD
+    subgraph 立项阶段
+        A[上会讨论]
+    end
+
+    subgraph 产品/项目规划
+        B[市场分析]
+        C[产品定位]
+        D[目标用户]
+        E[功能规划]
+    end
+
+    subgraph 业务需求澄清阶段
+        F[业务价值讲解]
+        G[需求文档编写]
+        H[需求理解和确认]
+    end
+
+    subgraph 环境准备阶段
+        I[资源协调会议]
+        J[申请APPID和子模块]
+        K[服务器申请]
+        L[部署单元绑定]
+        M[环境配置]
+    end
+
+    subgraph 项目搭建阶段
+        N[技术选型]
+        O[项目结构规划]
+        P[版本控制]
+        Q[多租户和网关配置]
+        R[第三方组件引入]
+        S[公共模块编写]
+    end
+
+    subgraph 开发阶段
+        T[设计文档编写]
+        U[编码实现]
+        V[技术难题解决]
+        W[自测和转测]
+        X[变更管理和上线]
+        Y[DevOps实践]
+    end
+
+    subgraph 求助阶段
+        Z[内部和外部资源求助]
+    end
+
+    A --&gt; B
+    B --&gt; F
+    F --&gt; G
+    G --&gt; H
+    H --&gt;|需求理解有误| F
+    H --&gt; I
+    I --&gt; J
+    J --&gt; K
+    K --&gt; L
+    L --&gt; M
+    M --&gt;|环境配置有问题| I
+    M --&gt; N
+    N --&gt; O
+    O --&gt; P
+    P --&gt; Q
+    Q --&gt; R
+    R --&gt; S
+    S --&gt;|技术选型或配置有问题| N
+    S --&gt; T
+    T --&gt; U
+    U --&gt; V
+    V --&gt; W
+    W --&gt; X
+    X --&gt; Y
+    Y --&gt;|发现BUG或需要功能调整| T
+    Y --&gt; Z
+    Z --&gt;|求助后问题解决| T
+
+    style A fill:#f9f,stroke:#333,stroke-width:4px
+    style B fill:#bbf,stroke:#333,stroke-width:4px
+    style C fill:#bbf,stroke:#333,stroke-width:4px
+    style D fill:#bbf,stroke:#333,stroke-width:4px
+    style E fill:#bbf,stroke:#333,stroke-width:4px
+    style F fill:#bfb,stroke:#333,stroke-width:4px
+    style G fill:#bfb,stroke:#333,stroke-width:4px
+    style H fill:#bfb,stroke:#333,stroke-width:4px
+    style I fill:#fbb,stroke:#333,stroke-width:4px
+    style J fill:#fbb,stroke:#333,stroke-width:4px
+    style K fill:#fbb,stroke:#333,stroke-width:4px
+    style L fill:#fbb,stroke:#333,stroke-width:4px
+    style M fill:#fbb,stroke:#333,stroke-width:4px
+    style N fill:#ff9,stroke:#333,stroke-width:4px
+    style O fill:#ff9,stroke:#333,stroke-width:4px
+    style P fill:#ff9,stroke:#333,stroke-width:4px
+    style Q fill:#ff9,stroke:#333,stroke-width:4px
+    style R fill:#ff9,stroke:#333,stroke-width:4px
+    style S fill:#ff9,stroke:#333,stroke-width:4px
+    style T fill:#9f9,stroke:#333,stroke-width:4px
+    style U fill:#9f9,stroke:#333,stroke-width:4px
+    style V fill:#9f9,stroke:#333,stroke-width:4px
+    style W fill:#9f9,stroke:#333,stroke-width:4px
+    style X fill:#9f9,stroke:#333,stroke-width:4px
+    style Y fill:#9f9,stroke:#333,stroke-width:4px
+    style Z fill:#99f,stroke:#333,stroke-width:4px
+</code></pre>
+<h1 id="华为项目开发流程详解">华为项目开发流程详解</h1>
+<p>在华为的项目开发中,遵循一套严格而系统的流程管理体系。本文将详细介绍从项目立项到最终交付的完整流程,帮助读者深入理解华为的项目管理方法论。</p>
+<h2 id="一立项阶段">一、立项阶段</h2>
+<p>立项是项目的起点,这个阶段的决策将直接影响整个项目的走向。</p>
+<h3 id="11-上会讨论">1.1 上会讨论</h3>
+<ul>
+<li>
+<p><strong>可行性评估</strong></p>
+<ul>
+<li>技术可行性：评估现有技术能力是否满足项目需求</li>
+<li>资源可行性：人力、设备、资金等资源是否充足</li>
+<li>时间可行性：项目时间节点是否合理</li>
+</ul>
+</li>
+<li>
+<p><strong>目标制定</strong></p>
+<ul>
+<li>项目总体目标</li>
+<li>阶段性目标</li>
+<li>具体可衡量的指标</li>
+</ul>
+</li>
+<li>
+<p><strong>资源需求分析</strong></p>
+<ul>
+<li>人力资源规划</li>
+<li>设备资源清单</li>
+<li>预算规划</li>
+</ul>
+</li>
+<li>
+<p><strong>时间规划</strong></p>
+<ul>
+<li>项目里程碑设定</li>
+<li>关键时间节点确定</li>
+<li>各阶段工期估算</li>
+</ul>
+</li>
+<li>
+<p><strong>实施策略制定</strong></p>
+<ul>
+<li>开发模式选择(敏捷/瀑布等)</li>
+<li>团队组织架构设计</li>
+<li>风险应对策略</li>
+</ul>
+</li>
+</ul>
+<h2 id="二产品项目规划">二、产品/项目规划</h2>
+<h3 id="21-市场分析">2.1 市场分析</h3>
+<ul>
+<li>市场现状调研</li>
+<li>竞品分析</li>
+<li>市场趋势预测</li>
+<li>SWOT分析</li>
+</ul>
+<h3 id="22-产品定位">2.2 产品定位</h3>
+<ul>
+<li>产品价值主张</li>
+<li>核心竞争力分析</li>
+<li>差异化策略</li>
+<li>产品生命周期规划</li>
+</ul>
+<h3 id="23-目标用户">2.3 目标用户</h3>
+<ul>
+<li>用户画像描述</li>
+<li>用户需求分析</li>
+<li>用户使用场景</li>
+<li>用户痛点识别</li>
+</ul>
+<h3 id="24-功能规划">2.4 功能规划</h3>
+<ul>
+<li>核心功能清单</li>
+<li>功能优先级排序</li>
+<li>MVP(最小可行产品)定义</li>
+<li>迭代规划</li>
+</ul>
+<h2 id="三业务需求澄清阶段">三、业务需求澄清阶段</h2>
+<h3 id="31-业务价值讲解">3.1 业务价值讲解</h3>
+<ul>
+<li>
+<p><strong>商业价值阐述</strong></p>
+<ul>
+<li>收入预期</li>
+<li>成本收益分析</li>
+<li>市场竞争力提升</li>
+<li>用户价值体现</li>
+</ul>
+</li>
+<li>
+<p><strong>预期收益分析</strong></p>
+<ul>
+<li>直接经济效益</li>
+<li>间接效益评估</li>
+<li>长期战略价值</li>
+</ul>
+</li>
+</ul>
+<h3 id="32-需求文档编写">3.2 需求文档编写</h3>
+<ul>
+<li>业务需求说明书(BRD)</li>
+<li>功能需求说明书(FRD)</li>
+<li>用户故事(User Story)</li>
+<li>验收标准定义</li>
+</ul>
+<h3 id="33-需求理解和确认">3.3 需求理解和确认</h3>
+<ul>
+<li>需求评审会议</li>
+<li>跨团队沟通对齐</li>
+<li>需求确认书签署</li>
+<li>需求变更控制</li>
+</ul>
+<h3 id="34-反馈循环">3.4 反馈循环</h3>
+<ul>
+<li>需求理解验证</li>
+<li>疑点澄清机制</li>
+<li>需求调整流程</li>
+<li>变更影响评估</li>
+</ul>
+<h2 id="四环境准备阶段">四、环境准备阶段</h2>
+<h3 id="41-资源协调会议">4.1 资源协调会议</h3>
+<ul>
+<li>组织架构确定</li>
+<li>人员分工安排</li>
+<li>资源分配方案</li>
+<li>跨部门协作机制</li>
+</ul>
+<h3 id="42-系统准备">4.2 系统准备</h3>
+<ul>
+<li>APPID申请流程</li>
+<li>子模块划分</li>
+<li>权限管理体系</li>
+<li>系统架构设计</li>
+</ul>
+<h3 id="43-基础设施">4.3 基础设施</h3>
+<ul>
+<li>服务器资源申请</li>
+<li>网络环境配置</li>
+<li>存储资源分配</li>
+<li>安全防护措施</li>
+</ul>
+<h3 id="44-环境搭建">4.4 环境搭建</h3>
+<ul>
+<li>开发环境配置</li>
+<li>测试环境部署</li>
+<li>预生产环境准备</li>
+<li>生产环境规划</li>
+</ul>
+<h3 id="45-反馈处理">4.5 反馈处理</h3>
+<ul>
+<li>环境问题跟踪</li>
+<li>配置优化调整</li>
+<li>性能测试验证</li>
+<li>环境文档维护</li>
+</ul>
+<h2 id="五项目搭建阶段">五、项目搭建阶段</h2>
+<h3 id="51-技术架构">5.1 技术架构</h3>
+<ul>
+<li>技术栈选型</li>
+<li>框架评估选择</li>
+<li>数据库方案</li>
+<li>中间件规划</li>
+</ul>
+<h3 id="52-项目结构">5.2 项目结构</h3>
+<ul>
+<li>代码结构设计</li>
+<li>模块划分方案</li>
+<li>接口规范制定</li>
+<li>开发规范确立</li>
+</ul>
+<h3 id="53-基础设施搭建">5.3 基础设施搭建</h3>
+<ul>
+<li>版本控制系统</li>
+<li>持续集成环境</li>
+<li>自动化部署</li>
+<li>监控系统</li>
+</ul>
+<h3 id="54-系统集成">5.4 系统集成</h3>
+<ul>
+<li>多租户实现</li>
+<li>网关服务配置</li>
+<li>第三方系统对接</li>
+<li>公共组件开发</li>
+</ul>
+<h2 id="六开发阶段">六、开发阶段</h2>
+<h3 id="61-设计工作">6.1 设计工作</h3>
+<ul>
+<li>概要设计</li>
+<li>详细设计</li>
+<li>数据库设计</li>
+<li>接口设计</li>
+<li>安全方案设计</li>
+</ul>
+<h3 id="62-开发实现">6.2 开发实现</h3>
+<ul>
+<li>功能模块开发</li>
+<li>代码审查</li>
+<li>单元测试</li>
+<li>集成测试</li>
+</ul>
+<h3 id="63-质量保证">6.3 质量保证</h3>
+<ul>
+<li>代码质量控制</li>
+<li>测试用例编写</li>
+<li>自动化测试</li>
+<li>性能优化</li>
+</ul>
+<h3 id="64-部署上线">6.4 部署上线</h3>
+<ul>
+<li>变更申请</li>
+<li>灰度发布</li>
+<li>监控告警</li>
+<li>应急预案</li>
+</ul>
+<h2 id="七求助与支持">七、求助与支持</h2>
+<h3 id="71-内部支持">7.1 内部支持</h3>
+<ul>
+<li>团队内部研讨</li>
+<li>技术专家咨询</li>
+<li>架构师指导</li>
+<li>经验分享会</li>
+</ul>
+<h3 id="72-外部资源">7.2 外部资源</h3>
+<ul>
+<li>平台组支持</li>
+<li>供应商咨询</li>
+<li>社区交流</li>
+<li>专业培训</li>
+</ul>
+<h3 id="73-问题解决">7.3 问题解决</h3>
+<ul>
+<li>问题分类管理</li>
+<li>解决方案评估</li>
+<li>知识库建设</li>
+<li>经验总结沉淀</li>
+</ul>
+<p>通过以上详细的流程体系，华为确保项目开发的规范性、可控性和高质量交付。每个阶段都有明确的输入输出，通过反馈循环机制不断优化和改进，最终达到预期的项目目标。这套流程体系不仅体现了华为对项目管理的专业性，也展示了其追求卓越的企业文化。</p>
+
+    </div>
+
+    
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/%E5%8D%8E%E4%B8%BA/">华为</a>
+          <a href="/tags/%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E6%B5%81%E7%A8%8B/">项目开发流程</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/deep-paginatin-problems/">
+            <span class="next-text nav-default">深度翻页优化：分库分表后的高效查询策略</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:tenfar@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://stackoverflow.com/users/tenfar" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="https://x.com/tenfar" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://www.linkedin.com/in/tenfar" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/tenfar" class="iconfont icon-github" title="github"></a>
+      <a href="https://space.bilibili.com/tenfar" class="iconfont icon-bilibili" title="bilibili"></a>
+  <a href="" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2024<span class="heart"><i class="iconfont icon-heart"></i></span><span>Tenfar</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  <script src="/lib/highlight/highlight.pack.js?v=20171001"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script><script></script><script src="https://cdn.jsdelivr.net/npm/raphael@2.2.7/raphael.min.js" integrity="sha256-67By+NpOtm9ka1R6xpUefeGOY8kWWHHRAKlvaTJ7ONI=" crossorigin="anonymous"></script> <script src="https://cdn.jsdelivr.net/npm/flowchart.js@1.8.0/release/flowchart.min.js" integrity="sha256-zNGWjubXoY6rb5MnmpBNefO0RgoVYfle9p0tvOQM+6k=" crossorigin="anonymous"></script><script></script><script src="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.js" integrity="sha256-4O4pS1SH31ZqrSO2A/2QJTVjTPqVe+jnYgOWUVr7EEc=" crossorigin="anonymous"></script> <script src="https://cdn.jsdelivr.net/npm/snapsvg@0.5.1/dist/snap.svg-min.js" integrity="sha256-oI+elz+sIm+jpn8F/qEspKoKveTc5uKeFHNNVexe6d8=" crossorigin="anonymous"></script> <script src="https://cdn.jsdelivr.net/npm/underscore@1.8.3/underscore-min.js" integrity="sha256-obZACiHd7gkOk9iIL/pimWMTJ4W/pBsKu+oZnSeBIek=" crossorigin="anonymous"></script> <script src="https://cdn.jsdelivr.net/gh/bramp/js-sequence-diagrams@2.0.1/dist/sequence-diagram-min.js" integrity="sha384-8748Vn52gHJYJI0XEuPB2QlPVNUkJlJn9tHqKec6J3q2r9l8fvRxrgn/E5ZHV0sP" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/bramp/js-sequence-diagrams@2.0.1/dist/sequence-diagram-min.css" integrity="sha384-6QbLKJMz5dS3adWSeINZe74uSydBGFbnzaAYmp+tKyq60S7H2p6V7g1TysM5lAaF" crossorigin="anonymous">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+<script>
+    mermaid.initialize({ startOnLoad: true, theme: 'forest' });
+    mermaid.init(undefined, document.querySelectorAll(".mermaid"));
+</script>
+<script>
+    
+    Array.from(document.getElementsByClassName("language-mermaid")).forEach(
+        (el) => {
+            el.parentElement.outerHTML = `<div class="mermaid">${el.innerText}</div>`;
+        }
+    );
+</script>
+<style>
+     
+    .mermaid svg {
+        display: block;
+        margin: auto;
+    }
+</style>
+
+
+
+
+<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

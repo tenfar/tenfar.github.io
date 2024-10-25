@@ -7,8 +7,22 @@
     <generator>Hugo</generator>
     <language>en</language>
     <copyright>Tenfar</copyright>
-    <lastBuildDate>Fri, 25 Oct 2024 11:01:26 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 25 Oct 2024 12:03:16 +0800</lastBuildDate>
     <atom:link href="http://localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>华为</title>
+      <link>http://localhost:1313/tags/%E5%8D%8E%E4%B8%BA/</link>
+      <pubDate>Fri, 25 Oct 2024 12:03:16 +0800</pubDate>
+      <guid>http://localhost:1313/tags/%E5%8D%8E%E4%B8%BA/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>工作流程</title>
+      <link>http://localhost:1313/tags/%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B/</link>
+      <pubDate>Fri, 25 Oct 2024 12:03:16 +0800</pubDate>
+      <guid>http://localhost:1313/tags/%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B/</guid>
+      <description></description>
+    </item>
     <item>
       <title>优化</title>
       <link>http://localhost:1313/tags/%E4%BC%98%E5%8C%96/</link>

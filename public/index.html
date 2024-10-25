@@ -50,8 +50,8 @@
 
   <meta itemprop="name" content="Tenfar Blog">
   <meta itemprop="description" content="May the force be with you.">
-  <meta itemprop="datePublished" content="2024-10-25T11:01:26+08:00">
-  <meta itemprop="dateModified" content="2024-10-25T11:01:26+08:00">
+  <meta itemprop="datePublished" content="2024-10-25T12:03:16+08:00">
+  <meta itemprop="dateModified" content="2024-10-25T12:03:16+08:00">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Tenfar Blog">
   <meta name="twitter:description" content="May the force be with you.">
@@ -127,13 +127,139 @@
           <section id="posts" class="posts">
     <article class="post">
   <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/post/work-process-in-hw/">Work Process in Hw</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2024-10-25 </span>
+      <div class="post-category">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/"> 技术 </a>
+          </div>
+        <span class="more-meta"> 1325 words </span>
+        <span class="more-meta"> 3 mins read </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      <pre><code class="language-mermaid">graph TD
+    subgraph 立项阶段
+        A[上会讨论]
+    end
+
+    subgraph 产品/项目规划
+        B[市场分析]
+        C[产品定位]
+        D[目标用户]
+        E[功能规划]
+    end
+
+    subgraph 业务需求澄清阶段
+        F[业务价值讲解]
+        G[需求文档编写]
+        H[需求理解和确认]
+    end
+
+    subgraph 环境准备阶段
+        I[资源协调会议]
+        J[申请APPID和子模块]
+        K[服务器申请]
+        L[部署单元绑定]
+        M[环境配置]
+    end
+
+    subgraph 项目搭建阶段
+        N[技术选型]
+        O[项目结构规划]
+        P[版本控制]
+        Q[多租户和网关配置]
+        R[第三方组件引入]
+        S[公共模块编写]
+    end
+
+    subgraph 开发阶段
+        T[设计文档编写]
+        U[编码实现]
+        V[技术难题解决]
+        W[自测和转测]
+        X[变更管理和上线]
+        Y[DevOps实践]
+    end
+
+    subgraph 求助阶段
+        Z[内部和外部资源求助]
+    end
+
+    A --&gt; B
+    B --&gt; F
+    F --&gt; G
+    G --&gt; H
+    H --&gt;|需求理解有误| F
+    H --&gt; I
+    I --&gt; J
+    J --&gt; K
+    K --&gt; L
+    L --&gt; M
+    M --&gt;|环境配置有问题| I
+    M --&gt; N
+    N --&gt; O
+    O --&gt; P
+    P --&gt; Q
+    Q --&gt; R
+    R --&gt; S
+    S --&gt;|技术选型或配置有问题| N
+    S --&gt; T
+    T --&gt; U
+    U --&gt; V
+    V --&gt; W
+    W --&gt; X
+    X --&gt; Y
+    Y --&gt;|发现BUG或需要功能调整| T
+    Y --&gt; Z
+    Z --&gt;|求助后问题解决| T
+
+    style A fill:#f9f,stroke:#333,stroke-width:4px
+    style B fill:#bbf,stroke:#333,stroke-width:4px
+    style C fill:#bbf,stroke:#333,stroke-width:4px
+    style D fill:#bbf,stroke:#333,stroke-width:4px
+    style E fill:#bbf,stroke:#333,stroke-width:4px
+    style F fill:#bfb,stroke:#333,stroke-width:4px
+    style G fill:#bfb,stroke:#333,stroke-width:4px
+    style H fill:#bfb,stroke:#333,stroke-width:4px
+    style I fill:#fbb,stroke:#333,stroke-width:4px
+    style J fill:#fbb,stroke:#333,stroke-width:4px
+    style K fill:#fbb,stroke:#333,stroke-width:4px
+    style L fill:#fbb,stroke:#333,stroke-width:4px
+    style M fill:#fbb,stroke:#333,stroke-width:4px
+    style N fill:#ff9,stroke:#333,stroke-width:4px
+    style O fill:#ff9,stroke:#333,stroke-width:4px
+    style P fill:#ff9,stroke:#333,stroke-width:4px
+    style Q fill:#ff9,stroke:#333,stroke-width:4px
+    style R fill:#ff9,stroke:#333,stroke-width:4px
+    style S fill:#ff9,stroke:#333,stroke-width:4px
+    style T fill:#9f9,stroke:#333,stroke-width:4px
+    style U fill:#9f9,stroke:#333,stroke-width:4px
+    style V fill:#9f9,stroke:#333,stroke-width:4px
+    style W fill:#9f9,stroke:#333,stroke-width:4px
+    style X fill:#9f9,stroke:#333,stroke-width:4px
+    style Y fill:#9f9,stroke:#333,stroke-width:4px
+    style Z fill:#99f,stroke:#333,stroke-width:4px
+</code></pre>
+<p>详细流程描述</p>
+    </div>
+    <div class="read-more">
+      <a href="/post/work-process-in-hw/" class="read-more-link">Read more...</a>
+    </div>
+  </div>
+</article>
+
+    <article class="post">
+  <header class="post-header">
     <h1 class="post-title"><a class="post-link" href="/post/deep-paginatin-problems/">深度翻页优化：分库分表后的高效查询策略</a></h1>
     <div class="post-meta">
       <span class="post-time"> 2024-10-25 </span>
       <div class="post-category">
           <a href="/categories/%E6%8A%80%E6%9C%AF/"> 技术 </a>
           </div>
-        <span class="more-meta"> 1149 words </span>
+        <span class="more-meta"> 1108 words </span>
         <span class="more-meta"> 3 mins read </span>
     </div>
   </header>
@@ -195,10 +321,13 @@
       <i class="iconfont icon-up"></i>
     </div>
   </div>
-  
+  <script src="/lib/highlight/highlight.pack.js?v=20171001"></script>
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
 
 
 
