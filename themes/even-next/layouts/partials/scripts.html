@@ -3,6 +3,9 @@
   <script src="{{ "lib/highlight/highlight.pack.js?v=20171001" | relURL }}"></script>
 {{- end -}}
 
+<!-- mermaid -->
+{{ partial "mermaid.html" . }}
+
 <!-- core -->
 {{- if .Site.Params.publicCDN.enable }}
   {{ .Site.Params.publicCDN.jquery | safeHTML }}
