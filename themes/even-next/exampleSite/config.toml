@@ -1,11 +1,11 @@
-baseURL = "http://tenfarr.com/"
+baseURL = "http://localhost:1313/"
 languageCode = "en"
 defaultContentLanguage = "en"                             # en / zh-cn / ... (This field determines which i18n file to use)
-title = "Tenfar Blog"
+title = "Even - A super concise theme for Hugo"
 preserveTaxonomyNames = true
 enableRobotsTXT = true
 enableEmoji = true
-theme = "even-next"
+theme = "even"
 enableGitInfo = false # use git commit log to generate lastmod record # 可根据 Git 中的提交生成最近更新记录。
 
 # Syntax highlighting by Chroma. NOTE: Don't enable `highlightInClient` and `chroma` at the same time!
@@ -18,9 +18,10 @@ hasCJKLanguage = true     # has chinese/japanese/korean ? # 自动检测是否�
 pagination.pagerSize = 5                                              # 首页每页显示的文章数
 disqusShortname = ""      # disqus_shortname
 googleAnalytics = ""      # UA-XXXXXXXX-X
-copyright = "Tenfar"            # default: author.name ↓        # 默认为下面配置的author.name ↓
+copyright = ""            # default: author.name ↓        # 默认为下面配置的author.name ↓
 
-
+[author]                  # essential                     # 必需
+  name = "olOwOlo"
 
 [sitemap]                 # essential                     # 必需
   changefreq = "weekly"
@@ -52,15 +53,15 @@ copyright = "Tenfar"            # default: author.name ↓        # 默认为下
   version = "4.x"           # Used to give a friendly message when you have an incompatible update
   debug = false             # If true, load `eruda.min.js`. See https://github.com/liriliri/eruda
 
-  since = "2024"            # Site creation time          # 站点建立时间
+  since = "2017"            # Site creation time          # 站点建立时间
   # use public git repo url to link lastmod git commit, enableGitInfo should be true.
   # 指定 git 仓库地址，可以生成指向最近更新的 git commit 的链接，需要将 enableGitInfo 设置成 true.
   gitRepo = ""
 
   # site info (optional)                                  # 站点信息（可选，不需要的可以直接注释掉）
-  logoTitle = "Tenfar"        # default: the title value    # 默认值: 上面设置的title值
-  keywords = ["Tenfar", "Blog", "Tenfar Blog","Coding"]
-  description = "May the force be with you."
+  logoTitle = "Even"        # default: the title value    # 默认值: 上面设置的title值
+  keywords = ["Hugo", "theme","even"]
+  description = "Hugo theme even example site."
 
   # pagination.pagerSize of archives, tags and categories             # 归档、标签、分类每页显示的文章数目，建议修改为一个较大的值
   archivePaginate = 50
@@ -72,7 +73,7 @@ copyright = "Tenfar"            # default: author.name ↓        # 默认为下
   dateFormatToUse = "2006-01-02"
 
   # show word count and read time ?                       # 是否显示字数统计与阅读时间
-  moreMeta = true   
+  moreMeta = false
 
   # Syntax highlighting by highlight.js
   highlightInClient = false
@@ -177,16 +178,25 @@ copyright = "Tenfar"            # default: author.name ↓        # 默认为下
 
   [params.reward]                                         # 文章打赏
     enable = false
-    wechat = "/images/wechat-qr-code.png"           # 微信二维码
-    alipay = "/images/alipay-qr-code.png"           # 支付宝二维码
+    wechat = "/path/to/your/wechat-qr-code.png"           # 微信二维码
+    alipay = "/path/to/your/alipay-qr-code.png"           # 支付宝二维码
 
   [params.social]                                         # 社交链接
-    a-email = "mailto:tenfar@gmail.com"
-    b-stack-overflow = "https://stackoverflow.com/users/tenfar"
-    c-twitter = "https://x.com/tenfar"
-    e-linkedin = "https://www.linkedin.com/in/tenfar"
-    g-github = "https://github.com/tenfar"
-    o-bilibili = "https://space.bilibili.com/tenfar"
+    a-email = "mailto:your@email.com"
+    b-stack-overflow = "http://localhost:1313"
+    c-twitter = "http://localhost:1313"
+    d-facebook = "http://localhost:1313"
+    e-linkedin = "http://localhost:1313"
+    f-google = "http://localhost:1313"
+    g-github = "http://localhost:1313"
+    h-weibo = "http://localhost:1313"
+    i-zhihu = "http://localhost:1313"
+    j-douban = "http://localhost:1313"
+    k-pocket = "http://localhost:1313"
+    l-tumblr = "http://localhost:1313"
+    m-instagram = "http://localhost:1313"
+    n-gitlab = "http://localhost:1313"
+    o-bilibili = "http://localhost:1313"
 
 # See https://gohugo.io/about/hugo-and-gdpr/
 [privacy]
@@ -204,17 +214,18 @@ copyright = "Tenfar"            # default: author.name ↓        # 默认为下
 
 # 将下面这段配置取消注释可以使 hugo 生成 .md 文件
 # Uncomment these options to make hugo output .md files.
-[mediaTypes]
- [mediaTypes."text/plain"]
-  suffixes = ["md"]
-
-[outputFormats.MarkDown]
-  mediaType = "text/plain"
-  isPlainText = true
-  isHTML = false
-
-[outputs]
-  home = ["HTML", "RSS"]
-  page = ["HTML", "MarkDown"]
-  section = ["HTML", "RSS"]
-  taxonomy = ["HTML", "RSS"]
+#[mediaTypes]
+#  [mediaTypes."text/plain"]
+#    suffixes = ["md"]
+#
+#[outputFormats.MarkDown]
+#  mediaType = "text/plain"
+#  isPlainText = true
+#  isHTML = false
+#
+#[outputs]
+#  home = ["HTML", "RSS"]
+#  page = ["HTML", "MarkDown"]
+#  section = ["HTML", "RSS"]
+#  taxonomy = ["HTML", "RSS"]
+#  taxonomy = ["HTML"]
