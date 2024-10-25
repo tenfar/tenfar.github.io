@@ -127,14 +127,14 @@
           <section id="posts" class="posts">
     <article class="post">
   <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/work-process-in-hw/">Work Process in Hw</a></h1>
+    <h1 class="post-title"><a class="post-link" href="/post/work-process-in-hw/">华为项目开发流程详解</a></h1>
     <div class="post-meta">
       <span class="post-time"> 2024-10-25 </span>
       <div class="post-category">
           <a href="/categories/%E6%8A%80%E6%9C%AF/"> 技术 </a>
           </div>
-        <span class="more-meta"> 1325 words </span>
-        <span class="more-meta"> 3 mins read </span>
+        <span class="more-meta"> 1703 words </span>
+        <span class="more-meta"> 4 mins read </span>
     </div>
   </header>
   
@@ -243,7 +243,8 @@
     style Y fill:#9f9,stroke:#333,stroke-width:4px
     style Z fill:#99f,stroke:#333,stroke-width:4px
 </code></pre>
-<p>详细流程描述</p>
+<h1 id="华为项目开发流程详解">华为项目开发流程详解</h1>
+<p>在华为的项目开发中,遵循一套严格而系统的流程管理体系。本文将详细介绍从项目立项到最终交付的完整流程,帮助读者深入理解华为的项目管理方法论。</p>
     </div>
     <div class="read-more">
       <a href="/post/work-process-in-hw/" class="read-more-link">Read more...</a>
@@ -327,6 +328,27 @@
   <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
 
 
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+<script>
+    mermaid.initialize({ startOnLoad: true, theme: 'forest' });
+    mermaid.init(undefined, document.querySelectorAll(".mermaid"));
+</script>
+<script>
+    
+    Array.from(document.getElementsByClassName("language-mermaid")).forEach(
+        (el) => {
+            el.parentElement.outerHTML = `<div class="mermaid">${el.innerText}</div>`;
+        }
+    );
+</script>
+<style>
+     
+    .mermaid svg {
+        display: block;
+        margin: auto;
+    }
+</style>
 
 
 
