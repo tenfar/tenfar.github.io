@@ -1,1 +1,1 @@
-# github.tenfar.io
+# tenfar.github.io
