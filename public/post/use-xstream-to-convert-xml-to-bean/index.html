@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>使用 XStream 将 XML 转换为 Java Bean - Tenfar Blog</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Tenfar" /><meta name="description" content="本文介绍了如何使用 XStream 将 XML 转换为 Java Bean，并处理复杂的 XML 结构。" /><meta name="keywords" content="XStream, XML, Java Bean" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.136.5 with theme even" />
+
+
+<link rel="canonical" href="http://localhost:1313/post/use-xstream-to-convert-xml-to-bean/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.cb68f97bc9cece255d217346d970e3c62623408634e500c330a62fadabbbe77c.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous"><script src="/lib/highlight/highlight.pack.js?v=20171001"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+<script>
+    mermaid.initialize({ startOnLoad: true, theme: 'forest' });
+    mermaid.init(undefined, document.querySelectorAll(".mermaid"));
+</script>
+<script>
+    
+    Array.from(document.getElementsByClassName("language-mermaid")).forEach(
+        (el) => {
+            el.parentElement.outerHTML = `<div class="mermaid">${el.innerText}</div>`;
+        }
+    );
+</script>
+<style>
+     
+    .mermaid svg {
+        display: block;
+        margin: auto;
+    }
+</style>
+
+
+
+<meta property="og:url" content="http://localhost:1313/post/use-xstream-to-convert-xml-to-bean/">
+  <meta property="og:site_name" content="Tenfar Blog">
+  <meta property="og:title" content="使用 XStream 将 XML 转换为 Java Bean">
+  <meta property="og:description" content="本文介绍了如何使用 XStream 将 XML 转换为 Java Bean，并处理复杂的 XML 结构。">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2024-10-28T13:49:23+08:00">
+    <meta property="article:modified_time" content="2024-10-28T13:49:23+08:00">
+    <meta property="article:tag" content="XStream">
+    <meta property="article:tag" content="XML">
+    <meta property="article:tag" content="Java Bean">
+
+  <meta itemprop="name" content="使用 XStream 将 XML 转换为 Java Bean">
+  <meta itemprop="description" content="本文介绍了如何使用 XStream 将 XML 转换为 Java Bean，并处理复杂的 XML 结构。">
+  <meta itemprop="datePublished" content="2024-10-28T13:49:23+08:00">
+  <meta itemprop="dateModified" content="2024-10-28T13:49:23+08:00">
+  <meta itemprop="wordCount" content="2478">
+  <meta itemprop="keywords" content="XStream,XML,Java Bean">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="使用 XStream 将 XML 转换为 Java Bean">
+  <meta name="twitter:description" content="本文介绍了如何使用 XStream 将 XML 转换为 Java Bean，并处理复杂的 XML 结构。">
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Tenfar</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Tenfar</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">使用 XStream 将 XML 转换为 Java Bean</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2024-10-28 </span>
+        <div class="post-category">
+            <a href="/categories/java/"> Java </a>
+            </div>
+          <span class="more-meta"> 2478 words </span>
+          <span class="more-meta"> 5 mins read </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#引言">引言</a></li>
+        <li><a href="#正文">正文</a>
+          <ul>
+            <li><a href="#1-xstream-简介">1. XStream 简介</a></li>
+            <li><a href="#2-xstream-的注解">2. XStream 的注解</a></li>
+            <li><a href="#3-添加-xstream-依赖">3. 添加 XStream 依赖</a></li>
+            <li><a href="#4-定义-java-bean">4. 定义 Java Bean</a></li>
+            <li><a href="#5-将-xml-转换为-java-bean">5. 将 XML 转换为 Java Bean</a></li>
+            <li><a href="#6-处理复杂-xml-结构">6. 处理复杂 XML 结构</a></li>
+            <li><a href="#7-转换工具类">7. 转换工具类</a></li>
+          </ul>
+        </li>
+        <li><a href="#拓展了解">拓展了解</a>
+          <ul>
+            <li><a href="#自定义解析器">自定义解析器</a></li>
+          </ul>
+        </li>
+        <li><a href="#深入了解">深入了解</a></li>
+        <li><a href="#结论">结论</a></li>
+        <li><a href="#进一步学习建议">进一步学习建议</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h2 id="引言">引言</h2>
+<p>在 Java 开发中，处理 XML 数据是一个常见的需求。<strong>XStream</strong> 是一个简单易用的 Java 库，用于将 Java 对象序列化为 XML，或将 XML 反序列化为 Java 对象。本文将详细介绍如何使用 XStream 将 XML 数据转换为 Java Bean。</p>
+<h2 id="正文">正文</h2>
+<h3 id="1-xstream-简介">1. XStream 简介</h3>
+<p>XStream 是一个开源的 Java 库，用于对象和 XML 之间的序列化和反序列化。它具有以下特点：</p>
+<ul>
+<li><strong>简单易用</strong>：XStream 的 API 设计简洁，易于上手。</li>
+<li><strong>灵活性</strong>：支持自定义转换器和别名，以满足不同的需求。</li>
+<li><strong>高性能</strong>：XStream 在处理大量数据时表现出色。</li>
+</ul>
+<p>XStream 的官方文档：<a href="https://x-stream.github.io/">XStream 官方文档</a></p>
+<h3 id="2-xstream-的注解">2. XStream 的注解</h3>
+<ul>
+<li><strong>@XStreamAlias(&ldquo;alias&rdquo;)</strong>：当 Java 对象在 XML 中以标签的形式显示时，如果名字与类名或者属性名不一致，可以使用该标签并在括号内注明别名。</li>
+<li><strong>@XStreamOmitField</strong>：在输出 XML 的时候忽略该属性。</li>
+<li><strong>@XStreamImplicit</strong>：如果该属性是一个列表或者数组，在 XML 中不显示 list 或者 Array 字样。</li>
+<li><strong>@XStreamAsAttribute</strong>：该属性不单独显示成 XML 节点，而是作为属性显示出来。</li>
+<li><strong>@XStreamContainedType</strong>：用于指定包含类型。</li>
+<li><strong>@XStreamConverter</strong>：设置转换器。</li>
+<li><strong>@XStreamConverters</strong>：converter 主要用于将某些字段进行复杂的转换，转换过程写在一个类中，然后将其注册到 XStream。</li>
+</ul>
+<h3 id="3-添加-xstream-依赖">3. 添加 XStream 依赖</h3>
+<p>首先，需要在项目中添加 XStream 的依赖。如果使用 Maven 构建工具，可以在 <code>pom.xml</code> 文件中添加以下依赖：</p>
+<pre><code class="language-xml">&lt;dependency&gt;
+    &lt;groupId&gt;com.thoughtworks.xstream&lt;/groupId&gt;
+    &lt;artifactId&gt;xstream&lt;/artifactId&gt;
+    &lt;version&gt;1.4.19&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre>
+<h3 id="4-定义-java-bean">4. 定义 Java Bean</h3>
+<p>在将 XML 转换为 Java 对象之前，需要定义一个 Java Bean 类。以下是一个简单的 Java Bean 示例：</p>
+<pre><code class="language-java">import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@XStreamAlias(&quot;person&quot;)
+public class Person {
+    @XStreamAlias(&quot;name&quot;)
+    private String name;
+    @XStreamAlias(&quot;age&quot;)
+    private int age;
+}
+</code></pre>
+<h3 id="5-将-xml-转换为-java-bean">5. 将 XML 转换为 Java Bean</h3>
+<p>使用 XStream 将 XML 转换为 Java Bean 的步骤如下：</p>
+<ol>
+<li><strong>创建 XStream 实例</strong>：首先需要创建一个 <code>XStream</code> 实例。</li>
+<li><strong>设置别名</strong>：可以为类和字段设置别名，以便在 XML 中使用不同的名称。</li>
+<li><strong>反序列化 XML</strong>：使用 <code>fromXML</code> 方法将 XML 字符串转换为 Java 对象。</li>
+</ol>
+<p>以下是一个完整的示例代码：</p>
+<pre><code class="language-java">import com.thoughtworks.xstream.XStream;
+
+public class XStreamExample {
+    public static void main(String[] args) {
+        // 创建 XStream 实例
+        XStream xstream = new XStream();
+
+        // 设置别名
+        xstream.alias(&quot;person&quot;, Person.class);
+
+        // XML 字符串
+        String xml = &quot;&lt;person&gt;&lt;name&gt;John Doe&lt;/name&gt;&lt;age&gt;30&lt;/age&gt;&lt;/person&gt;&quot;;
+
+        // 将 XML 转换为 Java 对象
+        Person person = (Person) xstream.fromXML(xml);
+
+        // 输出结果
+        System.out.println(&quot;Name: &quot; + person.getName());
+        System.out.println(&quot;Age: &quot; + person.getAge());
+    }
+}
+</code></pre>
+<p>在这个示例中：</p>
+<ul>
+<li>创建了一个 <code>XStream</code> 实例。</li>
+<li>为 <code>Person</code> 类设置了别名 <code>person</code>。</li>
+<li>使用 <code>fromXML</code> 方法将 XML 字符串转换为 <code>Person</code> 对象。</li>
+<li>输出了 <code>Person</code> 对象的属性。</li>
+</ul>
+<h3 id="6-处理复杂-xml-结构">6. 处理复杂 XML 结构</h3>
+<p>XStream 支持处理复杂的 XML 结构，包括嵌套元素和集合。以下是一个包含嵌套元素和集合的示例：</p>
+<pre><code class="language-java">import java.util.List;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+import com.thoughtworks.xstream.annotations.XStreamImplicit;
+import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@XStreamAlias(&quot;person&quot;)
+public class Person {
+    @XStreamAsAttribute
+    @XStreamAlias(&quot;name&quot;)
+    private String name;
+
+    @XStreamAsAttribute
+    @XStreamAlias(&quot;age&quot;)
+    private int age;
+
+    @XStreamImplicit(itemFieldName = &quot;hobby&quot;)
+    private List&lt;String&gt; hobbies;
+}
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@XStreamAlias(&quot;hobbies&quot;)
+public class Hobbies {
+    private List&lt;String&gt; hobbies;
+}
+</code></pre>
+<p>重命名注解：<code>@XStreamAlias()</code>
+省略集合根节点：<code>@XStreamImplicit</code>
+把字段节点设置成属性：<code>@XStreamAsAttribute</code>
+这些命名都需要和解析的xml的属性名一一对应，一旦不对应就会报<code>com.thoughtworks.xstream.mapper.CannotResolveClassException</code>异常，找不到对应的类属性
+集合属性的需要使用：<code>@XStreamImplicit</code>，不然会报<code>com.thoughtworks.xstream.converters.reflection.AbstractReflectionConverter$DuplicateFieldException</code>转换器映射异常</p>
+<p>对应的 XML 示例：</p>
+<pre><code class="language-xml">&lt;person&gt;
+    &lt;name&gt;John Doe&lt;/name&gt;
+    &lt;age&gt;30&lt;/age&gt;
+    &lt;hobbies&gt;
+        &lt;hobby&gt;Reading&lt;/hobby&gt;
+        &lt;hobby&gt;Traveling&lt;/hobby&gt;
+    &lt;/hobbies&gt;
+&lt;/person&gt;
+</code></pre>
+<p>使用 XStream 进行转换的代码如下：</p>
+<pre><code class="language-java">import com.thoughtworks.xstream.XStream;
+
+public class XStreamExample {
+    public static void main(String[] args) {
+        // 创建 XStream 实例
+        XStream xstream = new XStream();
+
+        // 设置别名
+        xstream.alias(&quot;person&quot;, Person.class);
+        xstream.alias(&quot;hobby&quot;, String.class);
+
+        // XML 字符串
+        String xml = &quot;&lt;person&gt;&lt;name&gt;John Doe&lt;/name&gt;&lt;age&gt;30&lt;/age&gt;&lt;hobbies&gt;&lt;hobby&gt;Reading&lt;/hobby&gt;&lt;hobby&gt;Traveling&lt;/hobby&gt;&lt;/hobbies&gt;&lt;/person&gt;&quot;;
+
+        // 将 XML 转换为 Java 对象
+        Person person = (Person) xstream.fromXML(xml);
+
+        // 输出结果
+        System.out.println(&quot;Name: &quot; + person.getName());
+        System.out.println(&quot;Age: &quot; + person.getAge());
+        System.out.println(&quot;Hobbies: &quot; + person.getHobbies());
+    }
+}
+</code></pre>
+<h3 id="7-转换工具类">7. 转换工具类</h3>
+<p>为了方便使用,写个转换的工具类</p>
+<pre><code class="language-java">public class XsteamUtil {
+    public static Object toBean(Class&lt;?&gt; clazz, String xml) {
+        Object xmlObject = null;
+        XStream xstream = new XStream();
+        xstream.processAnnotations(clazz);
+        xstream.autodetectAnnotations(true);
+        xmlObject= xstream.fromXML(xml);
+        return xmlObject;
+    }
+}
+</code></pre>
+<p>传参也是一样，<code>Class&lt;?&gt; clazz</code>:指定我们需要转换的对象，<code>xml</code>:需要转的xml字符串
+这样工具类就写好了</p>
+<h2 id="拓展了解">拓展了解</h2>
+<p>XStream 提供了很多方法供我们使用：</p>
+<ul>
+<li><strong>autodetectAnnotations()</strong>：自动检测注解。</li>
+<li><strong>processAnnotations()</strong>：应用传过来的类的注解。</li>
+<li><strong>fromXML()</strong>：XML 反序列化（JSON 也是一样）。</li>
+<li><strong>toXML()</strong>：XML 序列化（JSON 也是一样）。</li>
+</ul>
+<h3 id="自定义解析器">自定义解析器</h3>
+<ul>
+<li>
+<p>XStream 序列化 XML，解析器用 <strong>StaxDriver</strong>：</p>
+<pre><code class="language-java">XStream xstream = new XStream(new StaxDriver());
+</code></pre>
+</li>
+<li>
+<p>XStream 序列化 JSON，解析器用 <strong>JettisonMappedXmlDriver</strong>：</p>
+<pre><code class="language-java">XStream xstream = new XStream(new JettisonMappedXmlDriver());
+</code></pre>
+</li>
+</ul>
+<p>也可以不具体指定解析器，也是没问题的。</p>
+<h2 id="深入了解">深入了解</h2>
+<pre><code class="language-java">XStream xstream = new XStream();
+// 默认情况下，XStream会采用Xpp3库，XPP3是一种运行效率非常高的XML全解析实现。
+// 如果你不想依靠Xpp3库，可以使用标准的JAXP DOM解析器进行初始化：
+XStream xstream = new XStream(new DomDriver());
+// 此xstream实例是线程安全的，可以供多个线程共享使用。
+// 系统提供了多种解析器供我们选择，包括：`DomDriver`、`JDomDriver`、`StaxDriver`等。
+</code></pre>
+<p>XStream还提供了对JSON的支持，内置了两个Driver：</p>
+<ol>
+<li><strong>JsonHierarchicalStreamDriver</strong>：不依赖其他类库，仅实现 <code>obj</code>  -&gt; <code>JSON</code>。</li>
+<li><strong>JettisonMappedXmlDriver</strong>：依赖jettison类库，实现 <code>JSON</code> -&gt; <code>obj</code> 或 <code>obj</code> -&gt; <code>JSON</code>。</li>
+</ol>
+<p>这两种Driver在处理相同设置的Object时会生成不同的JSON串，<code>JsonHierarchicalStreamDriver</code>生成的串更简洁，正如官网所述。
+需要注意的是，<code>JsonHierarchicalStreamDriver</code>默认输出带格式的JSON串，结构中包含空格和换行，并且没有提供修饰方式。</p>
+<h2 id="结论">结论</h2>
+<p>本文介绍了如何使用 XStream 将 XML 转换为 Java Bean，并处理复杂的 XML 结构。XStream 是一个功能强大且易于使用的工具，适用于处理各种 XML 数据。建议进一步了解 XStream 的高级特性，如自定义转换器和别名，以应对更复杂的需求。</p>
+<h2 id="进一步学习建议">进一步学习建议</h2>
+<ul>
+<li><strong>自定义转换器</strong>：学习如何编写自定义转换器，以处理特定类型的数据。</li>
+<li><strong>别名和注解</strong>：了解如何使用别名和注解来简化 XML 和 Java 对象之间的映射。</li>
+<li><strong>安全性配置</strong>：学习如何配置 XStream 的安全性选项，以防止潜在的安全风险。</li>
+</ul>
+<p>通过深入学习这些高级特性，读者可以更好地利用 XStream 来处理复杂的 XML 数据转换任务。</p>
+
+    </div>
+
+    
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/xstream/">XStream</a>
+          <a href="/tags/xml/">XML</a>
+          <a href="/tags/java-bean/">Java Bean</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/work-process-in-hw/">
+            <span class="next-text nav-default">某为项目开发流程详解</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:tenfar@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://stackoverflow.com/users/tenfar" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="https://x.com/tenfar" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://www.linkedin.com/in/tenfar" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/tenfar" class="iconfont icon-github" title="github"></a>
+      <a href="https://space.bilibili.com/tenfar" class="iconfont icon-bilibili" title="bilibili"></a>
+  <a href="" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2024<span class="heart"><i class="iconfont icon-heart"></i></span><span>Tenfar</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  <script src="/lib/highlight/highlight.pack.js?v=20171001"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+<script>
+    mermaid.initialize({ startOnLoad: true, theme: 'forest' });
+    mermaid.init(undefined, document.querySelectorAll(".mermaid"));
+</script>
+<script>
+    
+    Array.from(document.getElementsByClassName("language-mermaid")).forEach(
+        (el) => {
+            el.parentElement.outerHTML = `<div class="mermaid">${el.innerText}</div>`;
+        }
+    );
+</script>
+<style>
+     
+    .mermaid svg {
+        display: block;
+        margin: auto;
+    }
+</style>
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+
+<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
