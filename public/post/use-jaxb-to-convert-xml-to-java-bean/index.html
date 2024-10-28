@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>使用 JAXB 将 XML 转换为 Java Bean - Tenfar Blog</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Tenfar" /><meta name="description" content="本文介绍了如何使用 JAXB 将 XML 数据转换为 Java Bean，并处理复杂的 XML 结构。" /><meta name="keywords" content="Jaxb, XML, Java Bean" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.136.5 with theme even" />
+
+
+<link rel="canonical" href="http://localhost:1313/post/use-jaxb-to-convert-xml-to-java-bean/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.cb68f97bc9cece255d217346d970e3c62623408634e500c330a62fadabbbe77c.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous"><script src="/lib/highlight/highlight.pack.js?v=20171001"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+<script>
+    mermaid.initialize({ startOnLoad: true, theme: 'forest' });
+    mermaid.init(undefined, document.querySelectorAll(".mermaid"));
+</script>
+<script>
+    
+    Array.from(document.getElementsByClassName("language-mermaid")).forEach(
+        (el) => {
+            el.parentElement.outerHTML = `<div class="mermaid">${el.innerText}</div>`;
+        }
+    );
+</script>
+<style>
+     
+    .mermaid svg {
+        display: block;
+        margin: auto;
+    }
+</style>
+
+
+
+<meta property="og:url" content="http://localhost:1313/post/use-jaxb-to-convert-xml-to-java-bean/">
+  <meta property="og:site_name" content="Tenfar Blog">
+  <meta property="og:title" content="使用 JAXB 将 XML 转换为 Java Bean">
+  <meta property="og:description" content="本文介绍了如何使用 JAXB 将 XML 数据转换为 Java Bean，并处理复杂的 XML 结构。">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2024-10-28T14:43:07+08:00">
+    <meta property="article:modified_time" content="2024-10-28T14:43:07+08:00">
+    <meta property="article:tag" content="Jaxb">
+    <meta property="article:tag" content="XML">
+    <meta property="article:tag" content="Java Bean">
+
+  <meta itemprop="name" content="使用 JAXB 将 XML 转换为 Java Bean">
+  <meta itemprop="description" content="本文介绍了如何使用 JAXB 将 XML 数据转换为 Java Bean，并处理复杂的 XML 结构。">
+  <meta itemprop="datePublished" content="2024-10-28T14:43:07+08:00">
+  <meta itemprop="dateModified" content="2024-10-28T14:43:07+08:00">
+  <meta itemprop="wordCount" content="1698">
+  <meta itemprop="keywords" content="Jaxb,XML,Java Bean">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="使用 JAXB 将 XML 转换为 Java Bean">
+  <meta name="twitter:description" content="本文介绍了如何使用 JAXB 将 XML 数据转换为 Java Bean，并处理复杂的 XML 结构。">
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Tenfar</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Tenfar</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">使用 JAXB 将 XML 转换为 Java Bean</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2024-10-28 </span>
+        <div class="post-category">
+            <a href="/categories/java/"> Java </a>
+            </div>
+          <span class="more-meta"> 1698 words </span>
+          <span class="more-meta"> 4 mins read </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#引言">引言</a></li>
+        <li><a href="#正文">正文</a>
+          <ul>
+            <li><a href="#1-jaxb-简介">1. JAXB 简介</a></li>
+            <li><a href="#2-jaxb-的主要注解">2. JAXB 的主要注解</a></li>
+            <li><a href="#3-使用-jaxb">3. 使用 JAXB</a></li>
+            <li><a href="#4-使用-jaxbcontext-和-marshaller">4. 使用 JAXBContext 和 Marshaller</a></li>
+            <li><a href="#5-使用-unmarshaller">5. 使用 Unmarshaller</a></li>
+            <li><a href="#6-处理复杂的-xml-结构">6. 处理复杂的 XML 结构</a></li>
+            <li><a href="#7-使用-maven-插件从-xsd-生成-java-类">7. 使用 Maven 插件从 XSD 生成 Java 类</a></li>
+          </ul>
+        </li>
+        <li><a href="#结论">结论</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h2 id="引言">引言</h2>
+<p>在 Java 开发中，处理 XML 数据是一个常见的需求。<strong>JAXB</strong> 是一个标准的 Java 技术，用于将 XML 数据绑定到 Java 对象。本文将详细介绍如何使用 JAXB 将 XML 数据转换为 Java Bean。</p>
+<h2 id="正文">正文</h2>
+<h3 id="1-jaxb-简介">1. JAXB 简介</h3>
+<p>JAXB 是 Java Architecture for XML Binding 的缩写，是一种用于将 XML 数据绑定到 Java 对象的技术。它提供了一种简单的方法，可以根据 XML Schema 自动生成 Java 类，也可以将 XML 实例文档反向生成 Java 对象树，并能将 Java 对象树的内容重新写到 XML 实例文档。</p>
+<p>JAXB 2.0 是 JDK 1.6 的一部分，无需下载第三方 jar 包即可使用。JAXB 2.0 使用了 JDK 的新特性，如 Annotation、GenericType 等，需要在即将转换的 Java Bean 中添加 annotation 注解。</p>
+<h3 id="2-jaxb-的主要注解">2. JAXB 的主要注解</h3>
+<p>JAXB 提供了许多注解，用于控制 XML 和 Java 对象之间的映射关系。以下是一些常用的注解：</p>
+<ul>
+<li><strong>@XmlRootElement</strong>：将 Java 类或枚举类型映射到 XML 元素。</li>
+<li><strong>@XmlElement</strong>：将 Java 类的一个属性映射到与属性同名的一个 XML 元素。</li>
+<li><strong>@XmlAttribute</strong>：将 Java 类的一个属性映射到与属性同名的一个 XML 属性。</li>
+<li><strong>@XmlType</strong>：将 Java 类或枚举类型映射到 XML 模式类型。</li>
+<li><strong>@XmlAccessorType</strong>：控制字段或属性的序列化。<code>FIELD</code> 表示 <code>JAXB</code> 将自动绑定 Java 类中的每个非静态的（static）、非瞬态的（由 <code>@XmlTransient</code> 标注）字段到 XML。其他值还有 <code>XmlAccessType.PROPERTY</code> 和 <code>XmlAccessType.NONE</code>。</li>
+<li><strong>@XmlAccessorOrder</strong>：控制 JAXB 绑定类中属性和字段的排序。</li>
+<li><strong>@XmlJavaTypeAdapter</strong>：使用定制的适配器（即扩展抽象类 XmlAdapter 并覆盖 marshal() 和 unmarshal() 方法），以序列化 Java 类为 XML。</li>
+<li><strong>@XmlElementWrapper</strong>：对于数组或集合（即包含多个元素的成员变量），生成一个包装该数组或集合的 XML 元素（称为包装器）。</li>
+</ul>
+<h3 id="3-使用-jaxb">3. 使用 JAXB</h3>
+<p>首先，需要在 Java Bean 上加上相关注解。以下是一个简单的 Java Bean 示例：</p>
+<pre><code class="language-java">import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@XmlRootElement(name = &quot;city&quot;)
+public class City {
+    @XmlAttribute(name = &quot;id&quot;)
+    private String cityId;
+    @XmlElement(name = &quot;name&quot;)
+    private String cityName;
+    @XmlElement(name = &quot;code&quot;)
+    private String cityCode;
+    @XmlElement(name = &quot;province&quot;)
+    private String province;
+}
+</code></pre>
+<p>在这个示例中，我们使用了 @XmlRootElement、@XmlAttribute、@XmlElement 注解，将 Java 类的属性映射到 XML 元素或属性。</p>
+<h3 id="4-使用-jaxbcontext-和-marshaller">4. 使用 JAXBContext 和 Marshaller</h3>
+<p>JAXB 提供了 JAXBContext 类和 Marshaller 接口，用于管理 XML/Java 绑定信息，以及将 Java 对象序列化为 XML 数据。以下是一个简单的示例：</p>
+<pre><code class="language-java">import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import java.io.StringWriter;
+
+public class JAXBExample {
+    public static void main(String[] args) {
+        try {
+            // 创建 JAXBContext 实例
+            JAXBContext jaxbContext = JAXBContext.newInstance(City.class);
+
+            // 创建 Marshaller 实例
+            Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
+
+            // 设置 Marshaller 属性
+            jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+
+            // 创建 Java 对象
+            City city = new City(&quot;1&quot;, &quot;Shanghai&quot;, &quot;021&quot;, &quot;Shanghai&quot;);
+
+            // 将 Java 对象序列化为 XML
+            StringWriter sw = new StringWriter();
+            jaxbMarshaller.marshal(city, sw);
+            String xmlString = sw.toString();
+            System.out.println(xmlString);
+        } catch (JAXBException e) {
+            e.printStackTrace();
+        }
+    }
+}
+</code></pre>
+<p>在这个示例中，我们创建了一个 JAXBContext 实例，然后使用它创建了一个 Marshaller 实例。我们还设置了 Marshaller 的属性，使其输出的 XML 数据格式化。最后，我们创建了一个 City 对象，将其序列化为 XML，并将 XML 数据输出到控制台。</p>
+<h3 id="5-使用-unmarshaller">5. 使用 Unmarshaller</h3>
+<p>JAXB 还提供了 Unmarshaller 接口，用于将 XML 数据反序列化为 Java 对象。以下是一个简单的示例：</p>
+<pre><code class="language-java">import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Unmarshaller;
+import java.io.StringReader;
+
+public class JAXBExample {
+    public static void main(String[] args) {
+        try {
+            // 创建 JAXBContext 实例
+            JAXBContext jaxbContext = JAXBContext.newInstance(City.class);
+
+            // 创建 Unmarshaller 实例
+            Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+
+            // 创建 XML 字符串
+            String xmlString = &quot;&lt;city id=\&quot;1\&quot;&gt;&lt;name&gt;Shanghai&lt;/name&gt;&lt;code&gt;021&lt;/code&gt;&lt;province&gt;Shanghai&lt;/province&gt;&lt;/city&gt;&quot;;
+
+            // 将 XML 反序列化为 Java 对象
+            StringReader reader = new StringReader(xmlString);
+            City city = (City) jaxbUnmarshaller.unmarshal(reader);
+            System.out.println(city);
+        } catch (JAXBException e) {
+            e.printStackTrace();
+        }
+    }
+}
+</code></pre>
+<p>在这个示例中，我们创建了一个 JAXBContext 实例，然后使用它创建了一个 Unmarshaller 实例。我们还创建了一个 XML 字符串，将其反序列化为 City 对象，并将 City 对象输出到控制台。</p>
+<h3 id="6-处理复杂的-xml-结构">6. 处理复杂的 XML 结构</h3>
+<p>JAXB 提供了对复杂 XML 结构的支持，包括嵌套元素、数组和集合。以下是一个示例，展示了如何使用 JAXB 处理复杂的 XML 结构：</p>
+<pre><code class="language-java">import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Unmarshaller;
+import java.io.StringReader;
+
+public class JAXBExample {
+    public static void main(String[] args) {
+        try {
+            // 创建 JAXBContext 实例
+            JAXBContext jaxbContext = JAXBContext.newInstance(Person.class);
+
+            // 创建 Unmarshaller 实例
+            Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+
+            // 创建 XML 字符串
+            String xmlString = &quot;&lt;person id=\&quot;1\&quot;&gt;&lt;name&gt;John Doe&lt;/name&gt;&lt;age&gt;30&lt;/age&gt;&lt;hobbies&gt;&lt;hobby&gt;Reading&lt;/hobby&gt;&lt;hobby&gt;Traveling&lt;/hobby&gt;&lt;/hobbies&gt;&lt;/person&gt;&quot;;
+
+            // 将 XML 反序列化为 Java 对象
+            StringReader reader = new StringReader(xmlString);
+            Person person = (Person) jaxbUnmarshaller.unmarshal(reader);
+            System.out.println(person);
+        } catch (JAXBException e) {
+            e.printStackTrace();
+        }
+    }
+} 
+</code></pre>
+<h3 id="7-使用-maven-插件从-xsd-生成-java-类">7. 使用 Maven 插件从 XSD 生成 Java 类</h3>
+<p>使用 JAXB，可以从 XSD 文件生成 Java 类。为此，我们需要在 Maven 项目的 <code>pom.xml</code> 文件中添加以下插件配置：</p>
+<pre><code class="language-xml">&lt;build&gt;
+    &lt;plugins&gt;
+        &lt;plugin&gt;
+            &lt;groupId&gt;org.codehaus.mojo&lt;/groupId&gt;
+            &lt;artifactId&gt;jaxb2-maven-plugin&lt;/artifactId&gt;
+            &lt;version&gt;3.2.0&lt;/version&gt;
+            &lt;executions&gt;
+                &lt;execution&gt;
+                    &lt;goals&gt;
+                        &lt;goal&gt;xjc&lt;/goal&gt;
+                    &lt;/goals&gt;
+                &lt;/execution&gt;
+            &lt;/executions&gt;
+            &lt;configuration&gt;
+                &lt;schemaDirectory&gt;${project.basedir}/src/main/resources&lt;/schemaDirectory&gt;
+                &lt;outputDirectory&gt;${project.build.directory}/generated-sources/jaxb&lt;/outputDirectory&gt;
+                &lt;clearOutputDir&gt;false&lt;/clearOutputDir&gt;
+            &lt;/configuration&gt;
+        &lt;/plugin&gt;
+    &lt;/plugins&gt;
+&lt;/build&gt;
+</code></pre>
+<p>在上面的配置中，我们指定了 XSD 文件的位置为 <code>src/main/resources</code>，生成的 Java 类将被输出到 <code>target/generated-sources/jaxb</code> 目录中。</p>
+<p>一旦配置了插件，我们可以在 Maven 项目中执行以下命令来生成 Java 类：</p>
+<pre><code class="language-bash">mvn clean generate-sources
+</code></pre>
+<p>这将根据 XSD 文件生成对应的 Java 类，我们可以在 Java 代码中使用这些类来处理 XML 数据。</p>
+<h2 id="结论">结论</h2>
+<p>本文介绍了如何使用 JAXB 将 XML 数据转换为 Java Bean。JAXB 是一个功能强大且易于使用的工具，适用于处理各种 XML 数据。建议进一步了解 JAXB 的高级特性，如自定义转换器和别名，以应对更复杂的需求。</p>
+
+    </div>
+
+    
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/jaxb/">Jaxb</a>
+          <a href="/tags/xml/">XML</a>
+          <a href="/tags/java-bean/">Java Bean</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/use-xstream-to-convert-xml-to-bean/">
+            <span class="next-text nav-default">使用 XStream 将 XML 转换为 Java Bean</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:tenfar@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://stackoverflow.com/users/tenfar" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="https://x.com/tenfar" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://www.linkedin.com/in/tenfar" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/tenfar" class="iconfont icon-github" title="github"></a>
+      <a href="https://space.bilibili.com/tenfar" class="iconfont icon-bilibili" title="bilibili"></a>
+  <a href="" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2024<span class="heart"><i class="iconfont icon-heart"></i></span><span>Tenfar</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  <script src="/lib/highlight/highlight.pack.js?v=20171001"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+<script>
+    mermaid.initialize({ startOnLoad: true, theme: 'forest' });
+    mermaid.init(undefined, document.querySelectorAll(".mermaid"));
+</script>
+<script>
+    
+    Array.from(document.getElementsByClassName("language-mermaid")).forEach(
+        (el) => {
+            el.parentElement.outerHTML = `<div class="mermaid">${el.innerText}</div>`;
+        }
+    );
+</script>
+<style>
+     
+    .mermaid svg {
+        display: block;
+        margin: auto;
+    }
+</style>
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+
+<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

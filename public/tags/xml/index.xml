@@ -7,14 +7,21 @@
     <generator>Hugo</generator>
     <language>en</language>
     <copyright>Tenfar</copyright>
-    <lastBuildDate>Mon, 28 Oct 2024 13:49:23 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 28 Oct 2024 14:43:07 +0800</lastBuildDate>
     <atom:link href="http://localhost:1313/tags/xml/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>使用 JAXB 将 XML 转换为 Java Bean</title>
+      <link>http://localhost:1313/post/use-jaxb-to-convert-xml-to-java-bean/</link>
+      <pubDate>Mon, 28 Oct 2024 14:43:07 +0800</pubDate>
+      <guid>http://localhost:1313/post/use-jaxb-to-convert-xml-to-java-bean/</guid>
+      <description>&lt;h2 id=&#34;引言&#34;&gt;引言&lt;/h2&gt;&#xA;&lt;p&gt;在 Java 开发中，处理 XML 数据是一个常见的需求。&lt;strong&gt;JAXB&lt;/strong&gt; 是一个标准的 Java 技术，用于将 XML 数据绑定到 Java 对象。本文将详细介绍如何使用 JAXB 将 XML 数据转换为 Java Bean。&lt;/p&gt;&#xA;&lt;h2 id=&#34;正文&#34;&gt;正文&lt;/h2&gt;&#xA;&lt;h3 id=&#34;1-jaxb-简介&#34;&gt;1. JAXB 简介&lt;/h3&gt;&#xA;&lt;p&gt;JAXB 是 Java Architecture for XML Binding 的缩写，是一种用于将 XML 数据绑定到 Java 对象的技术。它提供了一种简单的方法，可以根据 XML Schema 自动生成 Java 类，也可以将 XML 实例文档反向生成 Java 对象树，并能将 Java 对象树的内容重新写到 XML 实例文档。&lt;/p&gt;</description>
+    </item>
     <item>
       <title>使用 XStream 将 XML 转换为 Java Bean</title>
       <link>http://localhost:1313/post/use-xstream-to-convert-xml-to-bean/</link>
       <pubDate>Mon, 28 Oct 2024 13:49:23 +0800</pubDate>
       <guid>http://localhost:1313/post/use-xstream-to-convert-xml-to-bean/</guid>
-      <description>&lt;h1 id=&#34;使用-xstream-将-xml-转换为-java-bean&#34;&gt;使用 XStream 将 XML 转换为 Java Bean&lt;/h1&gt;&#xA;&lt;h2 id=&#34;引言&#34;&gt;引言&lt;/h2&gt;&#xA;&lt;p&gt;在 Java 开发中，处理 XML 数据是一个常见的需求。&lt;strong&gt;XStream&lt;/strong&gt; 是一个简单易用的 Java 库，用于将 Java 对象序列化为 XML，或将 XML 反序列化为 Java 对象。本文将详细介绍如何使用 XStream 将 XML 数据转换为 Java Bean。&lt;/p&gt;</description>
+      <description>&lt;h2 id=&#34;引言&#34;&gt;引言&lt;/h2&gt;&#xA;&lt;p&gt;在 Java 开发中，处理 XML 数据是一个常见的需求。&lt;strong&gt;XStream&lt;/strong&gt; 是一个简单易用的 Java 库，用于将 Java 对象序列化为 XML，或将 XML 反序列化为 Java 对象。本文将详细介绍如何使用 XStream 将 XML 数据转换为 Java Bean。&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>
