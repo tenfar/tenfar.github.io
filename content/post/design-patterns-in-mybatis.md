@@ -2,7 +2,7 @@
 title: "Mybatis中的设计模式"
 date: 2024-11-01T13:11:55+08:00
 lastmod: 2024-11-01T13:11:55+08:00
-draft: true
+draft: false
 keywords: [Mybatis, 设计模式, Builder模式, 工厂模式, 单例模式, 代理模式, 组合模式, 模板方法模式, 适配器模式, 装饰者模式, 迭代器模式]
 description: "Mybatis中的设计模式"
 tags: [Mybatis, 设计模式]
