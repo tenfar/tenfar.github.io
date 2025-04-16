@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>设计模式 on Tenfar Blog</title>
+    <link>http://localhost:64262/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</link>
+    <description>Recent content in 设计模式 on Tenfar Blog</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <copyright>Tenfar</copyright>
+    <lastBuildDate>Fri, 01 Nov 2024 13:11:55 +0800</lastBuildDate>
+    <atom:link href="http://localhost:64262/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Mybatis中的设计模式</title>
+      <link>http://localhost:64262/post/design-patterns-in-mybatis/</link>
+      <pubDate>Fri, 01 Nov 2024 13:11:55 +0800</pubDate>
+      <guid>http://localhost:64262/post/design-patterns-in-mybatis/</guid>
+      <description>&lt;h1 id=&#34;引言&#34;&gt;引言&lt;/h1&gt;&#xA;&lt;p&gt;在学习设计模式的过程中，我们往往只停留在理论层面，很少有机会在实际开发中应用这些模式。然而，理解设计模式的最佳途径之一是通过阅读优秀框架的源码，如Mybatis。Mybatis作为一个广泛使用的持久层框架，其实现中运用了多种设计模式，包括Builder模式、工厂模式、单例模式、代理模式、组合模式、模板方法模式、适配器模式、装饰者模式和迭代器模式。本文将探讨这些设计模式在Mybatis中的具体应用，帮助大家更好地理解和应用这些设计模式。&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

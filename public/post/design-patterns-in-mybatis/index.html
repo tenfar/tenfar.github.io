@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Mybatis中的设计模式 - Tenfar Blog</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Tenfar" /><meta name="description" content="Mybatis中的设计模式" /><meta name="keywords" content="Mybatis, 设计模式, Builder模式, 工厂模式, 单例模式, 代理模式, 组合模式, 模板方法模式, 适配器模式, 装饰者模式, 迭代器模式" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.136.5 with theme even" />
+
+
+<link rel="canonical" href="http://localhost:1313/post/design-patterns-in-mybatis/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.cb68f97bc9cece255d217346d970e3c62623408634e500c330a62fadabbbe77c.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous"><script src="/lib/highlight/highlight.pack.js?v=20171001"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@11.4.0/dist/mermaid.min.js"></script>
+<script>
+    mermaid.initialize({ startOnLoad: true, theme: 'forest' });
+    mermaid.init(undefined, document.querySelectorAll(".mermaid"));
+</script>
+<script>
+    
+    Array.from(document.getElementsByClassName("language-mermaid")).forEach(
+        (el) => {
+            el.parentElement.outerHTML = `<div class="mermaid">${el.innerText}</div>`;
+        }
+    );
+</script>
+<style>
+     
+    .mermaid svg {
+        display: block;
+        margin: auto;
+    }
+</style>
+
+
+
+<meta property="og:url" content="http://localhost:1313/post/design-patterns-in-mybatis/">
+  <meta property="og:site_name" content="Tenfar Blog">
+  <meta property="og:title" content="Mybatis中的设计模式">
+  <meta property="og:description" content="Mybatis中的设计模式">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2024-11-01T13:11:55+08:00">
+    <meta property="article:modified_time" content="2024-11-01T13:11:55+08:00">
+    <meta property="article:tag" content="Mybatis">
+    <meta property="article:tag" content="设计模式">
+
+  <meta itemprop="name" content="Mybatis中的设计模式">
+  <meta itemprop="description" content="Mybatis中的设计模式">
+  <meta itemprop="datePublished" content="2024-11-01T13:11:55+08:00">
+  <meta itemprop="dateModified" content="2024-11-01T13:11:55+08:00">
+  <meta itemprop="wordCount" content="3626">
+  <meta itemprop="keywords" content="Mybatis,设计模式,Builder模式,工厂模式,单例模式,代理模式,组合模式,模板方法模式,适配器模式,装饰者模式,迭代器模式">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Mybatis中的设计模式">
+  <meta name="twitter:description" content="Mybatis中的设计模式">
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Tenfar</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Tenfar</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Mybatis中的设计模式</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2024-11-01 </span>
+        <div class="post-category">
+            <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"> 设计模式 </a>
+            </div>
+          <span class="more-meta"> 3626 words </span>
+          <span class="more-meta"> 8 mins read </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#引言">引言</a></li>
+    <li><a href="#正文">正文</a>
+      <ul>
+        <li><a href="#1-builder模式">1. Builder模式</a>
+          <ul>
+            <li><a href="#定义">定义</a></li>
+            <li><a href="#在mybatis中的应用">在Mybatis中的应用</a></li>
+            <li><a href="#代码示例">代码示例</a></li>
+          </ul>
+        </li>
+        <li><a href="#2-工厂模式">2. 工厂模式</a>
+          <ul>
+            <li><a href="#定义-1">定义</a></li>
+            <li><a href="#在mybatis中的应用-1">在Mybatis中的应用</a></li>
+            <li><a href="#代码示例-1">代码示例</a></li>
+          </ul>
+        </li>
+        <li><a href="#3-单例模式">3. 单例模式</a>
+          <ul>
+            <li><a href="#在mybatis中的应用-2">在Mybatis中的应用</a></li>
+            <li><a href="#代码示例-2">代码示例</a></li>
+          </ul>
+        </li>
+        <li><a href="#4-代理模式">4. 代理模式</a>
+          <ul>
+            <li><a href="#定义-2">定义</a></li>
+            <li><a href="#在mybatis中的应用-3">在Mybatis中的应用</a></li>
+            <li><a href="#代码示例-3">代码示例</a></li>
+          </ul>
+        </li>
+        <li><a href="#5-组合模式">5. 组合模式</a>
+          <ul>
+            <li><a href="#在mybatis中的应用-4">在Mybatis中的应用</a></li>
+          </ul>
+        </li>
+        <li><a href="#6-模板方法模式">6. 模板方法模式</a>
+          <ul>
+            <li><a href="#在mybatis中的应用-5">在Mybatis中的应用</a></li>
+            <li><a href="#代码示例-4">代码示例</a></li>
+          </ul>
+        </li>
+        <li><a href="#7-适配器模式">7. 适配器模式</a>
+          <ul>
+            <li><a href="#定义-3">定义</a></li>
+            <li><a href="#在mybatis中的应用-6">在Mybatis中的应用</a></li>
+            <li><a href="#代码示例-5">代码示例</a></li>
+          </ul>
+        </li>
+        <li><a href="#8-装饰者模式">8. 装饰者模式</a>
+          <ul>
+            <li><a href="#定义-4">定义</a></li>
+            <li><a href="#在mybatis中的应用-7">在Mybatis中的应用</a></li>
+            <li><a href="#代码示例-6">代码示例</a></li>
+          </ul>
+        </li>
+        <li><a href="#9-迭代器模式">9. 迭代器模式</a>
+          <ul>
+            <li><a href="#定义-5">定义</a></li>
+            <li><a href="#在mybatis中的应用-8">在Mybatis中的应用</a></li>
+            <li><a href="#代码示例-7">代码示例</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#结论">结论</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h1 id="引言">引言</h1>
+<p>在学习设计模式的过程中，我们往往只停留在理论层面，很少有机会在实际开发中应用这些模式。然而，理解设计模式的最佳途径之一是通过阅读优秀框架的源码，如Mybatis。Mybatis作为一个广泛使用的持久层框架，其实现中运用了多种设计模式，包括Builder模式、工厂模式、单例模式、代理模式、组合模式、模板方法模式、适配器模式、装饰者模式和迭代器模式。本文将探讨这些设计模式在Mybatis中的具体应用，帮助大家更好地理解和应用这些设计模式。</p>
+<h1 id="正文">正文</h1>
+<h2 id="1-builder模式">1. Builder模式</h2>
+<h3 id="定义">定义</h3>
+<p>Builder模式将一个复杂对象的构建与其表示分离，使得同样的构建过程可以创建不同的表示。</p>
+<pre><code class="language-mermaid">classDiagram
+    class SqlSessionFactoryBuilder {
+        +build(InputStream inputStream) SqlSessionFactory
+        note for SqlSessionFactoryBuilder &quot;负责构建SqlSessionFactory的类&quot;
+    }
+
+    class XMLConfigBuilder {
+        +parse() Configuration
+        note for XMLConfigBuilder &quot;解析Mybatis配置文件的类&quot;
+    }
+
+    class Configuration {
+        +addMapper(Class&lt;?&gt; type)
+        note for Configuration &quot;Mybatis的核心配置类，包含Mapper的配置信息&quot;
+    }
+
+    class SqlSessionFactory {
+        +openSession() SqlSession
+        note for SqlSessionFactory &quot;用于创建SqlSession的工厂类&quot;
+    }
+
+    class SqlSession {
+        +selectOne(String statement, Object parameter)
+        note for SqlSession &quot;执行SQL语句的会话类&quot;
+    }
+
+    SqlSessionFactoryBuilder --&gt; XMLConfigBuilder : uses
+    SqlSessionFactoryBuilder --&gt; Configuration : creates
+    SqlSessionFactory --&gt; SqlSession : creates
+    SqlSessionFactory --&gt; Configuration : configures
+</code></pre>
+<h3 id="在mybatis中的应用">在Mybatis中的应用</h3>
+<p><code>Mybatis</code>中的<code>SqlSessionFactoryBuilder</code>使用了Builder模式。该类通过调用<code>XMLConfigBuilder</code>读取Mybatis配置文件和Mapper文件，构建核心对象<code>Configuration</code>，然后使用该对象创建<code>SqlSessionFactory</code>。</p>
+<h3 id="代码示例">代码示例</h3>
+<pre><code class="language-java">SqlSessionFactoryBuilder builder = new SqlSessionFactoryBuilder();
+SqlSessionFactory factory = builder.build(inputStream);
+</code></pre>
+<h2 id="2-工厂模式">2. 工厂模式</h2>
+<h3 id="定义-1">定义</h3>
+<p>工厂模式提供了一种创建对象的方式，而不需要指定具体的类。它通过定义一个接口来创建对象，允许子类决定实例化哪一个类。</p>
+<pre><code class="language-mermaid">classDiagram
+    class SqlSessionFactory {
+        +openSession() SqlSession
+    }
+</code></pre>
+<h3 id="在mybatis中的应用-1">在Mybatis中的应用</h3>
+<p>在<code>Mybatis</code>中，<code>SqlSessionFactory</code>实现了简单工厂模式。根据不同的参数，工厂可以返回不同类型的<code>SqlSession</code>实例。具体来说，<code>SqlSessionFactory</code>根据配置文件中的信息，决定创建哪种类型的<code>SqlSession</code>，从而实现灵活的会话管理。</p>
+<h3 id="代码示例-1">代码示例</h3>
+<pre><code class="language-java">SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(inputStream);
+SqlSession session = factory.openSession();
+
+</code></pre>
+<h2 id="3-单例模式">3. 单例模式</h2>
+<p>定义：单例模式确保一个类只有一个实例，并提供一个全局访问点。</p>
+<pre><code class="language-mermaid">classDiagram
+    class ErrorContext {
+        +instance() ErrorContext
+    }
+    ErrorContext --&gt; ErrorContext : singleton
+    note for ErrorContext &quot;用于记录线程范围内的错误信息的类&quot;
+
+    class LogFactory {    
+        +getLog(Class&lt;?&gt; clazz) Log
+    }
+    LogFactory --&gt; LogFactory : singleton
+    note for LogFactory &quot;用于获取日志对象的工厂类&quot;
+</code></pre>
+<h3 id="在mybatis中的应用-2">在Mybatis中的应用</h3>
+<p><code>Mybatis</code>中的<code>ErrorContext</code>和<code>LogFactory</code>使用了单例模式。<code>ErrorContext</code>用于记录线程范围内的错误信息，而<code>LogFactory</code>用于获取日志对象。</p>
+<h3 id="代码示例-2">代码示例</h3>
+<pre><code class="language-java">
+ErrorContext context = ErrorContext.instance();
+context.message(&quot;test&quot;);  
+
+</code></pre>
+<h2 id="4-代理模式">4. 代理模式</h2>
+<h3 id="定义-2">定义</h3>
+<p>代理模式为其他对象提供一个代理以控制对这个对象的访问。</p>
+<pre><code class="language-mermaid">classDiagram
+    class UserMapper {
+        &lt;&lt;interface&gt;&gt;
+        +getUserById(int id) User
+    }
+
+    class MapperProxy {
+        -SqlSession sqlSession
+        +MapperProxy(SqlSession sqlSession)
+        +invoke(Object proxy, Method method, Object[] args) Object
+   
+    }
+
+    class SqlSession {
+        +getMapper(Class&lt;T&gt; type) T
+        +selectOne(String statement, Object parameter) T
+    }
+
+    class Client {
+        +main(String[] args)
+
+    }
+
+    class User {
+        +int id
+        +String name
+        +User(int id, String name)
+    }
+
+    MapperProxy --&gt; SqlSession : uses
+    SqlSession --&gt; MapperProxy : creates
+    Client --&gt; SqlSession : uses
+    Client --&gt; UserMapper : uses
+    UserMapper &lt;|.. MapperProxy : implements
+    MapperProxy --&gt; User : returns
+
+    note for MapperProxy &quot;MapperProxy实现了InvocationHandler接口，负责处理Mapper接口方法的调用。它使用SqlSession来执行SQL语句并返回结果。&quot;
+    note for SqlSession &quot;SqlSession提供了执行SQL语句、获取Mapper实例等功能。它使用JDK动态代理生成Mapper接口的实现类。&quot;
+    note for Client &quot;客户端代码使用SqlSession和MapperProxy来执行数据库操作。它通过SqlSession获取Mapper实例，并调用Mapper接口的方法。&quot;
+    note for User &quot;User表示数据库中的用户实体。它是Mapper接口方法的返回类型。&quot;
+</code></pre>
+<h3 id="在mybatis中的应用-3">在Mybatis中的应用</h3>
+<p><code>Mybatis</code>的核心功能之一是通过代理模式实现的。开发者只需定义<code>Mapper</code>接口，<code>Mybatis</code>会自动生成代理类来执行SQL语句。</p>
+<h3 id="代码示例-3">代码示例</h3>
+<pre><code class="language-java">class UserMapper {
+    List&lt;User&gt; selectAll();
+}
+UserMapper mapper = session.getMapper(UserMapper.class);
+mapper.selectAll();
+
+// 生成代理类
+class UserMapperProxy implements MapperProxy&lt;UserMapper&gt; {
+    @Override
+    public List&lt;User&gt; selectAll() {
+        return sqlSession.selectList(&quot;select * from users&quot;);
+    }
+} 
+</code></pre>
+<h2 id="5-组合模式">5. 组合模式</h2>
+<p>定义：组合模式将对象组合成树形结构以表示“部分-整体”的层次结构。</p>
+<h3 id="在mybatis中的应用-4">在Mybatis中的应用</h3>
+<p><code>Mybatis</code>中的<code>SqlNode</code>和<code>SqlSource</code>使用了组合模式，构建复杂的SQL语句结构。</p>
+<pre><code class="language-mermaid">classDiagram
+    class SqlNode {
+        &lt;&lt;interface&gt;&gt;
+        +apply(DynamicContext context)
+        note for SqlNode &quot;表示一个SQL片段，是组合模式中的叶子节点&quot;
+    }
+
+    class StaticTextSqlNode {
+        -String text
+        +StaticTextSqlNode(String text)
+        +apply(DynamicContext context)
+        note for StaticTextSqlNode &quot;表示一个静态文本SQL片段，实现了SqlNode接口&quot;
+    }
+
+    class MixedSqlNode {
+        -List&lt;SqlNode&gt; contents
+        +MixedSqlNode(List&lt;SqlNode&gt; contents)
+        +apply(DynamicContext context)
+        note for MixedSqlNode &quot;表示一个包含多个SqlNode的组合节点，实现了SqlNode接口&quot;
+    }
+
+    class DynamicContext {
+        -StringBuilder sqlBuilder
+        +appendSql(String sql)
+        +getSql() String
+        note for DynamicContext &quot;用于构建动态SQL语句的上下文&quot;
+    }
+
+    class SqlSource {
+        -SqlNode rootSqlNode
+        +SqlSource(SqlNode rootSqlNode)
+        +getBoundSql() String
+        note for SqlSource &quot;表示一个完整的SQL语句，由多个SqlNode组合而成&quot;
+    }
+
+    class Client {
+        +main(String[] args)
+        note for Client &quot;客户端代码，使用SqlSource和SqlNode来构建动态SQL语句&quot;
+    }
+
+    SqlNode &lt;|.. StaticTextSqlNode : implements
+    SqlNode &lt;|.. MixedSqlNode : implements
+    MixedSqlNode --&gt; SqlNode : contains
+    SqlSource --&gt; SqlNode : uses
+    Client --&gt; SqlSource : uses
+    StaticTextSqlNode --&gt; DynamicContext : uses
+    MixedSqlNode --&gt; DynamicContext : uses
+    SqlSource --&gt; DynamicContext : uses
+
+    note for SqlNode &quot;SqlNode表示一个SQL片段，是组合模式中的叶子节点。它定义了apply方法，用于将SQL片段应用到动态上下文中。&quot;
+    note for StaticTextSqlNode &quot;StaticTextSqlNode表示一个静态文本SQL片段，实现了SqlNode接口。它包含一个文本字段，并在apply方法中将文本追加到动态上下文中。&quot;
+    note for MixedSqlNode &quot;MixedSqlNode表示一个包含多个SqlNode的组合节点，实现了SqlNode接口。它包含一个SqlNode列表，并在apply方法中依次调用每个SqlNode的apply方法。&quot;
+    note for DynamicContext &quot;DynamicContext用于构建动态SQL语句的上下文。它包含一个StringBuilder，用于存储构建的SQL语句，并提供appendSql和getSql方法。&quot;
+    note for SqlSource &quot;SqlSource表示一个完整的SQL语句，由多个SqlNode组合而成。它包含一个根SqlNode，并在getBoundSql方法中调用根SqlNode的apply方法，返回构建的SQL语句。&quot;
+    note for Client &quot;客户端代码使用SqlSource和SqlNode来构建动态SQL语句。它创建SqlNode实例，并将它们组合成一个SqlSource，最后调用SqlSource的getBoundSql方法获取构建的SQL语句。&quot;
+</code></pre>
+<h2 id="6-模板方法模式">6. 模板方法模式</h2>
+<p>定义：模板方法模式定义了一个算法的骨架，并允许子类为一个或多个步骤提供实现。</p>
+<pre><code class="language-mermaid">classDiagram
+    class Executor {
+        &lt;&lt;interface&gt;&gt;
+        +query(MappedStatement ms, Object parameter, RowBounds rowBounds, ResultHandler resultHandler) List&lt;E&gt;
+    }
+
+    class SimpleExecutor {
+        +query(MappedStatement ms, Object parameter, RowBounds rowBounds, ResultHandler resultHandler) List&lt;E&gt;
+    }
+
+    class BaseExecutor {
+        &lt;&lt;abstract&gt;&gt;
+        +query(MappedStatement ms, Object parameter, RowBounds rowBounds, ResultHandler resultHandler) List&lt;E&gt;
+    }
+    Executor &lt;|.. SimpleExecutor : implements
+    Executor &lt;|.. BaseExecutor : implements
+    BaseExecutor --&gt; SimpleExecutor : extends
+</code></pre>
+<h3 id="在mybatis中的应用-5">在Mybatis中的应用</h3>
+<p><code>Mybatis</code>中的<code>BaseExecutor</code>和<code>SimpleExecutor</code>使用了模板方法模式，定义了执行SQL的通用流程。</p>
+<h3 id="代码示例-4">代码示例</h3>
+<pre><code class="language-java">public abstract class BaseExecutor implements Executor {
+    public &lt;E&gt; List&lt;E&gt; query(MappedStatement ms, Object parameter, RowBounds rowBounds, ResultHandler resultHandler) throws SQLException {
+        // 模板方法
+    }
+}
+</code></pre>
+<h2 id="7-适配器模式">7. 适配器模式</h2>
+<h3 id="定义-3">定义</h3>
+<p>适配器模式将一个类的接口转换成客户端期望的另一个接口。</p>
+<pre><code class="language-mermaid">classDiagram
+    class Log {
+        &lt;&lt;interface&gt;&gt;
+        +error(String s, Throwable e)
+    }
+
+    class Log4jImpl {
+        +Log4jImpl(String clazz)
+        +error(String s, Throwable e)
+    } 
+    Log &lt;|.. Log4jImpl : implements
+    note for Log4jImpl &quot;Log4jImpl实现了Log接口，负责使用Log4j记录错误信息&quot;  
+</code></pre>
+<h3 id="在mybatis中的应用-6">在Mybatis中的应用</h3>
+<p><code>Mybatis</code>中的<code>Log</code>接口使用了适配器模式，适配不同的日志框架。</p>
+<h3 id="代码示例-5">代码示例</h3>
+<pre><code class="language-java">public class Log4jImpl implements Log {
+    private Logger log;
+    public Log4jImpl(String clazz) {
+        log = Logger.getLogger(clazz);
+    }
+    // 实现Log接口的方法
+}
+</code></pre>
+<h2 id="8-装饰者模式">8. 装饰者模式</h2>
+<h3 id="定义-4">定义</h3>
+<p>装饰者模式动态地给一个对象添加一些额外的职责。</p>
+<pre><code class="language-mermaid">classDiagram
+    class Cache {
+        &lt;&lt;interface&gt;&gt;
+        +putObject(Object key, Object value)
+    }
+
+    class LoggingCache {
+        -Cache delegate
+        +LoggingCache(Cache delegate)
+        +putObject(Object key, Object value)
+    }
+    Cache &lt;|.. LoggingCache : implements
+    note for LoggingCache &quot;LoggingCache装饰了Cache接口，负责记录缓存操作的日志&quot;
+</code></pre>
+<h3 id="在mybatis中的应用-7">在Mybatis中的应用</h3>
+<p><code>Mybatis</code>中的<code>Cache</code>接口使用了装饰者模式，通过不同的装饰器实现缓存功能。</p>
+<h3 id="代码示例-6">代码示例</h3>
+<pre><code class="language-java">public class LoggingCache implements Cache {
+    private Cache delegate;
+    public LoggingCache(Cache delegate) {
+        this.delegate = delegate;
+    }
+    // 实现Cache接口的方法
+}
+</code></pre>
+<h2 id="9-迭代器模式">9. 迭代器模式</h2>
+<h3 id="定义-5">定义</h3>
+<p>迭代器模式提供一种方法顺序访问一个聚合对象中的各个元素，而又不暴露其内部表示。</p>
+<pre><code class="language-mermaid">classDiagram
+    class ResultMap {
+        &lt;&lt;interface&gt;&gt;
+        +getResultMappings() Iterator&lt;ResultMapping&gt;
+    }
+
+    class DefaultResultMap {
+        +getResultMappings() Iterator&lt;ResultMapping&gt;
+    }
+    ResultMap &lt;|.. DefaultResultMap : implements
+    note for DefaultResultMap &quot;DefaultResultMap实现了ResultMap接口，负责获取结果映射&quot;
+</code></pre>
+<h3 id="在mybatis中的应用-8">在Mybatis中的应用</h3>
+<p><code>Mybatis</code>中的<code>ResultMap</code>使用了迭代器模式，遍历结果集中的每一行数据。</p>
+<h3 id="代码示例-7">代码示例</h3>
+<pre><code class="language-java">public class DefaultResultMap implements ResultMap {
+    public Iterator&lt;ResultMapping&gt; getResultMappings() {
+        return mappings.iterator();
+    }
+}
+</code></pre>
+<h1 id="结论">结论</h1>
+<p>通过深入分析<code>Mybatis</code>中各种设计模式的应用，我们可以看到设计模式在实际开发中的重要性。设计模式不仅仅是理论，它们是解决实际问题的有效工具。通过阅读和理解优秀框架的源码，我们可以更好地掌握这些设计模式，并在自己的项目中灵活应用。希望本文能帮助读者在设计模式的学习和应用上更进一步。</p>
+
+    </div>
+
+    
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/mybatis/">Mybatis</a>
+          <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/use-jaxb-to-convert-xml-to-java-bean/">
+            <span class="next-text nav-default">使用 JAXB 将 XML 转换为 Java Bean</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:tenfar@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://stackoverflow.com/users/tenfar" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="https://x.com/tenfar" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://www.linkedin.com/in/tenfar" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/tenfar" class="iconfont icon-github" title="github"></a>
+      <a href="https://space.bilibili.com/tenfar" class="iconfont icon-bilibili" title="bilibili"></a>
+  <a href="" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2024<span class="heart"><i class="iconfont icon-heart"></i></span><span>Tenfar</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  <script src="/lib/highlight/highlight.pack.js?v=20171001"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@11.4.0/dist/mermaid.min.js"></script>
+<script>
+    mermaid.initialize({ startOnLoad: true, theme: 'forest' });
+    mermaid.init(undefined, document.querySelectorAll(".mermaid"));
+</script>
+<script>
+    
+    Array.from(document.getElementsByClassName("language-mermaid")).forEach(
+        (el) => {
+            el.parentElement.outerHTML = `<div class="mermaid">${el.innerText}</div>`;
+        }
+    );
+</script>
+<style>
+     
+    .mermaid svg {
+        display: block;
+        margin: auto;
+    }
+</style>
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+
+<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
