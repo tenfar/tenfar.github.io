@@ -67,6 +67,24 @@
         a6: '請依次檢查：系統「設定 → 開燈」中麥克風權限是否開啟；裝置的音量與靜音開關；重新啟動應用再試。仍然不行請電郵聯絡我們，並附上機型與系統版本。',
         footer: '© 2026 開燈 LightUp · <a href="./privacy.html">私隱政策</a>'
       },
+      home: {
+        __title: '開燈 LightUp · 孩子卡在哪裡，開燈照給你看',
+        __desc: '開燈 LightUp：數學/語文/英語三學科微觀卡點診斷、每日 3 分鐘靶向練習、60 秒點亮挑戰、光點與勳章。數據全在本機，不收集任何資料。',
+        eyebrow: '數學 · 語文 · 英語',
+        h1: '孩子卡在哪裡，開燈照給你看',
+        p: '微觀卡點診斷與每日 3 分鐘靶向練習。所有資料只存在這台裝置上。',
+        f1t: '10 分鐘，找到具體卡點',
+        f1p: '每學科約 10 分鐘的診斷，把「沒開竅」翻譯成一個個具體卡點：不是「數學不好」，而是「進位口算還沒穩」。',
+        f2t: '每天 3 分鐘，只練不會的',
+        f2p: '針對卡點自動出題，口算、拼音、拼讀都做成孩子能自己上手的卡片；答錯進錯題隊列，零扣分。',
+        f3t: '60 秒點亮挑戰',
+        f3p: '練穩的知識點解鎖 60 秒挑戰：60 格逐格點亮，不倒數、不排名，只和上次的自己比。',
+        f4t: '光點與勳章，看得見的進步',
+        f4p: '光點只增不減，勳章只記錄「你做到過」——沒有分數排名，點亮一盞燈就是進步。',
+        priv: '數據全在本機 · 不收集任何資料',
+        privl: '隱私政策 ›',
+        footer: '© 2026 開燈 LightUp · <a href="./privacy.html">隱私政策</a> · <a href="./support.html">支持與常見問題</a>'
+      },
       landing: {
         __title: '開燈 LightUp · 全量 Mock UI（35 Screens）',
         live: '數學 · 語文 · 英語 · 60s挑戰 · 積分勳章',
@@ -142,6 +160,24 @@
         q6: 'No sound on read-aloud / recording not working?',
         a6: 'Check in order: microphone permission under system Settings → LightUp; device volume and the mute switch; then restart the app. If it still fails, email us with your device model and OS version.',
         footer: '© 2026 LightUp (开灯) · <a href="./privacy.html">Privacy Policy</a>'
+      },
+      home: {
+        __title: 'LightUp · Where your child gets stuck, LightUp shows you',
+        __desc: 'LightUp: micro-level gap diagnosis across Math / Chinese / English, a 3-minute targeted practice each day, a 60-second Light-Up Challenge, points and medals. All data stays on the device — nothing collected.',
+        eyebrow: 'Math · Chinese · English',
+        h1: 'Where your child gets stuck,<br>LightUp shows you.',
+        p: 'Micro-level gap diagnosis and a 3-minute targeted practice every day. All data stays on this device.',
+        f1t: 'Find the exact gaps in 10 minutes',
+        f1p: 'A roughly 10-minute per-subject diagnosis translates “just not getting it” into concrete gaps: not “bad at math,” but “carrying in addition isn\u2019t solid yet.”',
+        f2t: '3 minutes a day, only what\u2019s missing',
+        f2p: 'Questions are generated for the gaps — mental math, pinyin, phonics — as cards kids can work on their own. Wrong answers go to a review queue; nothing is ever deducted.',
+        f3t: 'The 60-second Light-Up Challenge',
+        f3p: 'Solid knowledge unlocks a 60-second challenge: 60 cells light up one by one. No countdown, no rankings — only against your last self.',
+        f4t: 'Points and medals, progress you can see',
+        f4p: 'Points only go up; medals only record “you did it.” No scores, no rankings — every lamp lit is visible progress.',
+        priv: 'All data on-device · Nothing collected',
+        privl: 'Privacy Policy ›',
+        footer: '© 2026 LightUp (开灯) · <a href="./privacy.html">Privacy Policy</a> · <a href="./support.html">Support & FAQ</a>'
       },
       landing: {
         __title: 'LightUp · Complete UI Mock (35 Screens)',
