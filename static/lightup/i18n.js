@@ -209,8 +209,10 @@
     if (typeof navigator !== 'undefined') {
       nav = ((navigator.languages && navigator.languages[0]) || navigator.language || '').toLowerCase();
     }
+    /* Chinese locales (incl. zh-HK/TW/MO) default to Simplified — the product's
+       primary language; Traditional readers read Simplified passively and the
+       switcher is one tap away. Only non-Chinese visitors get auto-English. */
     if (nav.indexOf('en') === 0) return 'en';
-    if (/(hant|zh-tw|zh-hk|zh-mo)/.test(nav)) return 'zh-Hant';
     return 'zh-Hans';
   }
 
