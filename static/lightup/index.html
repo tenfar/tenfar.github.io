@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-Hans">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="description" content="开灯 LightUp：孩子卡在哪里，开灯照给你看——数学/语文/英语三学科诊断与练习、60s 挑战、成就积分与勋章。">
 <title>开灯 LightUp · 全量 Mock UI（35 Screens）</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
@@ -49,6 +50,10 @@ header{position:sticky;top:0;z-index:40;backdrop-filter:blur(18px) saturate(1.4)
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(.72)}}
 header .spacer{flex:1}
 header .meta{font-family:var(--mono);font-size:11px;color:var(--txt3);letter-spacing:.12em;text-transform:uppercase}
+.langs{display:flex;border:1px solid var(--line2);border-radius:20px;overflow:hidden;background:var(--glass);font-family:var(--mono)}
+.langs button{border:none;background:none;padding:4px 11px;cursor:pointer;color:var(--txt2);font-family:var(--mono);font-size:11px;letter-spacing:.05em}
+.langs button+button{border-left:1px solid var(--line)}
+.langs button.on{background:rgba(127,167,122,.18);color:var(--matcha-d);font-weight:700}
 .hero{max-width:1440px;margin:0 auto;padding:48px 32px 8px;}
 .hero .eyebrow{font-family:var(--mono);font-size:11px;color:var(--matcha);letter-spacing:.22em;text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:10px}
 .hero .eyebrow::before{content:"";width:28px;height:1px;background:var(--matcha)}
@@ -485,15 +490,16 @@ footer{border-top:1px solid var(--line);padding:26px 32px;display:flex;justify-c
     开灯 LightUp
     <span class="tag" id="screencountag">FULL MOCK · 35 SCREENS</span>
   </div>
-  <div class="live"><i></i>数学 · 语文 · 英语 · 60s挑战 · 积分勋章</div>
+  <div class="live"><i></i><span data-i="live">数学 · 语文 · 英语 · 60s挑战 · 积分勋章</span></div>
   <div class="spacer"></div>
+  <div class="langs" role="group" aria-label="Language / 语言"><button type="button" data-lang="zh-Hans">简体</button><button type="button" data-lang="zh-Hant">繁體</button><button type="button" data-lang="en">EN</button></div>
   <div class="meta">Matcha · Liquid Glass</div>
 </header>
 
 <section class="hero">
-  <div class="eyebrow">Complete UI Mock · 全量页面</div>
-  <h1>孩子卡在哪里，<br><em>开灯</em>照给你看。</h1>
-  <p>全部 35 屏：三学科（数学/语文/英语）诊断与练习、60s 挑战模式、成就积分 + 勋章双激励体系。左侧按流程分组切换，右侧为各屏规则说明。</p>
+  <div class="eyebrow" data-i="eyebrow">Complete UI Mock · 全量页面</div>
+  <h1 data-i="h1">孩子卡在哪里，<br><em>开灯</em>照给你看。</h1>
+  <p data-i="p">全部 35 屏：三学科（数学/语文/英语）诊断与练习、60s 挑战模式、成就积分 + 勋章双激励体系。左侧按流程分组切换，右侧为各屏规则说明。</p>
 </section>
 
 <main class="stage">
@@ -515,6 +521,8 @@ footer{border-top:1px solid var(--line);padding:26px 32px;display:flex;justify-c
   <span>MATCHA & LIQUID GLASS</span>
 </footer>
 
+<script src="./i18n.js"></script>
+<script src="./i18n-screens.js"></script>
 <script>
 /* ================= 屏幕模板 ================= */
 const SB = (inner, extra='') => `<div class="statusbar"><span>20:00</span><span class="icons">●●● 5G ▮</span></div><div class="scr-body" ${extra}>${inner}</div>`;
@@ -1634,29 +1642,44 @@ const SCREENS = [
 const scrBox=document.getElementById('screens');
 const navlist=document.getElementById('navlist');
 const notes=document.getElementById('notes');
-let lastGrp=null;
+/* i18n: per-screen overrides come from LU_SCREENS, falling back to the zh-Hans source */
+const scrDict=()=>window.LU_SCREENS&&LU_SCREENS[LU.lang]||{};
+const loc=(s,f)=>{const e=scrDict()[s.id];return e&&e[f]!==undefined?e[f]:s[f];};
+const locArr=(s,f)=>{const e=scrDict()[s.id];return Array.isArray(e&&e[f])?e[f]:s[f];};
 SCREENS.forEach((s,i)=>{
   const d=document.createElement('div');
   d.className='screen'+(i>0?' hidden':'')+(s.html.includes('class="scr-body kid"')?'':'');
   d.id=s.id; d.innerHTML=s.html;
   scrBox.appendChild(d);
-  if(s.grp!==lastGrp){const g=document.createElement('div');g.className='grp';g.textContent=s.grp;navlist.appendChild(g);lastGrp=s.grp;}
-  const b=document.createElement('button');
-  b.innerHTML=`<span class="no">${String(i+1).padStart(2,'0')}</span>${s.name}<span class="us">${s.us}</span>`;
-  b.onclick=()=>show(i);
-  navlist.appendChild(b);
 });
+let lastGrp=null,cur=0;
+function buildNav(){
+  navlist.innerHTML='';lastGrp=null;
+  SCREENS.forEach((s,i)=>{
+    const grp=LU.tGrp(s.grp);
+    if(grp!==lastGrp){const g=document.createElement('div');g.className='grp';g.textContent=grp;navlist.appendChild(g);lastGrp=grp;}
+    const b=document.createElement('button');
+    b.innerHTML=`<span class="no">${String(i+1).padStart(2,'0')}</span>${loc(s,'name')}<span class="us">${s.us}</span>`;
+    b.onclick=()=>show(i);
+    navlist.appendChild(b);
+  });
+  [...navlist.querySelectorAll('button')].forEach((c,j)=>c.classList.toggle('on',j===cur));
+}
 function show(i){
+  cur=i;
   [...navlist.querySelectorAll('button')].forEach((c,j)=>c.classList.toggle('on',j===i));
   SCREENS.forEach((s,j)=>document.getElementById(s.id).classList.toggle('hidden',j!==i));
   const s=SCREENS[i];
-  notes.innerHTML=`<div class="nhead">SCREEN ${String(i+1).padStart(2,'0')} · ${s.us}</div><h2>${s.title}</h2>
-    <div class="desc">${s.desc}</div>`+
-    s.specs.map(sp=>`<div class="spec ${sp.cls}"><div class="t">${sp.t}</div><div class="d">${sp.d}</div></div>`).join('')+
-    `<div class="chips">${s.chips.map(c=>`<span class="chip">${c}</span>`).join('')}<span class="chip cy">${s.us}</span></div>`;
+  const specs=locArr(s,'specs'),chips=locArr(s,'chips');
+  notes.innerHTML=`<div class="nhead">SCREEN ${String(i+1).padStart(2,'0')} · ${s.us}</div><h2>${loc(s,'title')}</h2>
+    <div class="desc">${loc(s,'desc')}</div>`+
+    specs.map(sp=>`<div class="spec ${sp.cls}"><div class="t">${sp.t}</div><div class="d">${sp.d}</div></div>`).join('')+
+    `<div class="chips">${chips.map(c=>`<span class="chip">${c}</span>`).join('')}<span class="chip cy">${s.us}</span></div>`;
   if(s.id==='s7'&&window.gvFit)requestAnimationFrame(()=>window.gvFit());
 }
+buildNav();
 show(0);
+window.addEventListener('lu-lang',()=>{buildNav();show(cur);});
 /* AC-8 动态屏数（header/nav 计数由实际屏数驱动）*/
 document.getElementById('screencount').textContent=SCREENS.length;
 document.getElementById('screencountag').textContent='FULL MOCK · '+SCREENS.length+' SCREENS';
@@ -1690,7 +1713,7 @@ document.addEventListener('click',e=>{
     return;
   }
   const b=e.target.closest('.screen button:not([data-go])');
-  if(b)toast('演示：此动作为弹层/即时反馈，无页面跳转');
+  if(b)toast(LU.t('toast')||'演示：此动作为弹层/即时反馈，无页面跳转');
 });
 
 /* ========== 知识图谱：左→右可折叠树（s7） ========== */
@@ -1817,7 +1840,7 @@ if(cele){
   }
 }
 </script>
-<footer style="max-width:1440px;margin:0 auto;padding:4px 32px 44px;text-align:center;font-family:var(--mono);font-size:11.5px;color:var(--txt3);letter-spacing:.08em">© 2026 开灯 LightUp<span style="margin:0 12px;color:var(--matcha-l)">·</span><a href="./privacy.html" style="color:var(--matcha);text-decoration:none">隐私政策</a><span style="margin:0 12px;color:var(--matcha-l)">·</span><a href="./support.html" style="color:var(--matcha);text-decoration:none">支持与常见问题</a></footer>
+<footer data-i="footer" style="max-width:1440px;margin:0 auto;padding:4px 32px 44px;text-align:center;font-family:var(--mono);font-size:11.5px;color:var(--txt3);letter-spacing:.08em">© 2026 开灯 LightUp<span style="margin:0 12px;color:var(--matcha-l)">·</span><a href="./privacy.html" style="color:var(--matcha);text-decoration:none">隐私政策</a><span style="margin:0 12px;color:var(--matcha-l)">·</span><a href="./support.html" style="color:var(--matcha);text-decoration:none">支持与常见问题</a></footer>
 <div id="toast"></div>
 </body>
 </html>
