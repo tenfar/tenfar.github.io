@@ -27,7 +27,7 @@ footer{margin-top:52px;padding-top:16px;border-top:1px solid #e6e2d8;color:#8686
 <main>
 <div class="langbar"><div class="langs" role="group" aria-label="Language / 语言"><button type="button" data-lang="zh-Hans">简体</button><button type="button" data-lang="zh-Hant">繁體</button><button type="button" data-lang="en">EN</button></div></div>
 <h1 data-i="h1">开灯 LightUp 隐私政策</h1>
-<p class="meta" data-i="meta">生效日期：2026 年 8 月 24 日 · 版本 v1.0 · 开发者：Tenfar Lin</p>
+<p class="meta" data-i="meta">生效日期：2026 年 8 月 24 日 · 版本 v1.1 · 开发者：Tenfar Lin</p>
 
 <p class="lead" data-i="lead"><strong>「开灯 LightUp」不收集任何用户数据。</strong>App Store 隐私标签为「不收集数据」。本页用平实的语言说明这款应用如何对待你和孩子的数据。</p>
 
@@ -54,7 +54,14 @@ footer{margin-top:52px;padding-top:16px;border-top:1px solid #e6e2d8;color:#8686
 <p data-i="p_perm">本应用仅申请「麦克风」一项权限，用途见上文；不申请通讯录、照片、位置等任何其他权限。</p>
 
 <h2 data-i="h_future">关于未来的联网功能</h2>
-<p data-i="p_future">当前版本唯一的联网相关代码是家长可选的「AI 变式题」（需家长自行填入自己的 API 密钥），首发版本已禁用，因此现版本不存在任何网络数据传输。若未来版本提供需要联网的可选功能，我们会先更新本政策、明确告知数据去向，再随版本发布。</p>
+<p data-i="p_f0">当前版本唯一的联网相关功能是家长可选的「AI 变式题」，首发版本已禁用，因此现版本不发起任何网络请求。未来版本若启用该功能，数据去向如下：</p>
+<ul>
+<li data-i="p_f1"><strong>完全可选，默认不可见</strong>：仅当家长在「设置 → AI 变式题」中自行填写第三方 AI 服务的 API 密钥后，功能入口才会出现；不配置，应用就与现在完全一样，零联网。</li>
+<li data-i="p_f2"><strong>发送什么</strong>：仅为生成练习题所需的当次上下文——孩子所在年级与学期、本次练习卡点的名称与难度、题型、以及本次已做过的题目原文（最多 20 条，用于避免重复出题）。不发送姓名等任何身份信息；也不发送录音——跟读录音只保存在本机（见上文「麦克风与跟读录音」）。</li>
+<li data-i="p_f3"><strong>发往哪里</strong>：仅发往家长自行配置的服务端点（留空时为 OpenAI 或 Anthropic 的官方地址，也可填自建网关或中转服务）。API 密钥仅作为请求头发往该端点，不写入任何日志；开发者既看不到密钥，也看不到发送的内容。</li>
+<li data-i="p_f4"><strong>离开设备之后</strong>：数据到达家长所选服务后的存储与处理，由该服务商的隐私政策约束；本应用不再发送其他任何内容。</li>
+</ul>
+<p data-i="p_f5">本应用若在未来新增任何其他联网功能，同样会先更新本政策、明确告知数据去向，再随版本发布。</p>
 
 <h2 data-i="h_update">政策更新</h2>
 <p data-i="p_update">若应用的数据实践发生变化，本页面将同步更新，并标注新的生效日期。</p>
