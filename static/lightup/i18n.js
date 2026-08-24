@@ -81,6 +81,36 @@
         f3p: '練穩的知識點解鎖 60 秒挑戰：60 格逐格點亮，不倒數、不排名，只和上次的自己比。',
         f4t: '光點與勳章，看得見的進步',
         f4p: '光點只增不減，勳章只記錄「你做到過」——沒有分數排名，點亮一盞燈就是進步。',
+        /* card-internal UI text (LIG-283): same layout as zh-Hans, only the
+           language differs; knowledge-node names are learning-content samples
+           and convert wholesale (product variant map: 里程 keeps 里). */
+        c1_sub: '數學',
+        c1_meta: '已答 27 題 · 用時 9 分 32 秒',
+        c1_h: '發現微觀卡點',
+        c1_g1: '5以內加減',
+        c1_g1lv: '卡點位於 L2',
+        c1_g2: '進位口算',
+        c1_g2lv: '卡點位於 L1',
+        c1_g3: '認識圖形',
+        c1_g3lv: '卡點 · 待確認',
+        c1_cta: '去練習，先消第一個卡點',
+        c3_lv: '🍃 中等檔',
+        c3_s1: '已答對',
+        c3_s2: '已答題',
+        c3_s3: '正確率',
+        c4_title: '小滿的點亮牆',
+        c4_sub: '每消掉一個卡點，就點亮一盞燈',
+        c4_rung: '<b>Lv.3 點點亮</b> · 光點 920',
+        c4_next: '再得 120 光點升級',
+        c4_prog: '點亮進度',
+        c4_m1: '初點燈',
+        c4_m2: '拼音點亮',
+        c4_m3: '計算點亮',
+        c4_m4: '錯題清零',
+        c4_m5: '點亮里程',
+        c4_m6: '識字點亮',
+        c4_m7: '燈火通明',
+        c4_m8: '長明燈',
         priv: '數據全在本機 · 不收集任何資料',
         privl: '隱私政策 ›',
         footer: '© 2026 開燈 LightUp · <a href="./privacy.html">隱私政策</a> · <a href="./support.html">支持與常見問題</a>'
@@ -175,6 +205,37 @@
         f3p: 'Solid knowledge unlocks a 60-second challenge: 60 cells light up one by one. No countdown, no rankings — only against your last self.',
         f4t: 'Points and medals, progress you can see',
         f4p: 'Points only go up; medals only record “you did it.” No scores, no rankings — every lamp lit is visible progress.',
+        /* card-internal UI text (LIG-283): translations verbatim from the app's
+           Localizable.xcstrings where they exist (卡点→bottleneck/gap per official
+           entries); knowledge-node names are learning-content samples and stay
+           Chinese, matching app behavior. */
+        c1_sub: 'Math',
+        c1_meta: '27 answered · 9 min 32 s',
+        c1_h: 'Bottlenecks found',
+        c1_g1: '5以内加减',
+        c1_g1lv: 'Gap at L2',
+        c1_g2: '进位口算',
+        c1_g2lv: 'Gap at L1',
+        c1_g3: '认识图形',
+        c1_g3lv: 'Gap · to confirm',
+        c1_cta: 'Practice — clear the first bottleneck',
+        c3_lv: '🍃 Medium',
+        c3_s1: 'Correct',
+        c3_s2: 'Answered',
+        c3_s3: 'Accuracy',
+        c4_title: "小满's Lit Wall",
+        c4_sub: 'Each bottleneck cleared lights a lamp',
+        c4_rung: '<b>Lv.3 Sparks</b> · 920 points',
+        c4_next: '120 points to level up',
+        c4_prog: 'Lighting progress',
+        c4_m1: 'First Light',
+        c4_m2: 'Pinyin Lit',
+        c4_m3: 'Calc Lit',
+        c4_m4: 'Zero Wrong',
+        c4_m5: 'Lit Miles',
+        c4_m6: 'Word Lit',
+        c4_m7: 'All Aglow',
+        c4_m8: 'Eternal Lamp',
         priv: 'All data on-device · Nothing collected',
         privl: 'Privacy Policy ›',
         footer: '© 2026 LightUp (开灯) · <a href="./privacy.html">Privacy Policy</a> · <a href="./support.html">Support & FAQ</a>'
@@ -209,10 +270,11 @@
     if (typeof navigator !== 'undefined') {
       nav = ((navigator.languages && navigator.languages[0]) || navigator.language || '').toLowerCase();
     }
+    if (nav.indexOf('en') === 0) return 'en';
     /* Chinese locales (incl. zh-HK/TW/MO) default to Simplified — the product's
        primary language; Traditional readers read Simplified passively and the
-       switcher is one tap away. Only non-Chinese visitors get auto-English. */
-    if (nav.indexOf('en') === 0) return 'en';
+       switcher is one tap away. Only non-Chinese visitors get auto-English.
+       (Live-site behavior since LIG-280; synced here so deploys don't roll it back.) */
     return 'zh-Hans';
   }
 
@@ -264,7 +326,7 @@
     if (b) set(b.getAttribute('data-lang'));
   });
 
-  window.LU = { LANGS: LANGS, get lang() { return current; }, t: t, tGrp: tGrp, apply: apply, set: set };
+  window.LU = { LANGS: LANGS, get lang() { return current; }, t: t, tGrp: tGrp, apply: apply, set: set, DICTS: DICTS };
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', apply);
   else apply();
