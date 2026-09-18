@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>开灯 LightUp · 孩子卡在哪里，开灯照给你看</title>
-<meta name="description" content="开灯 LightUp：数学/语文/英语三学科微观盲点诊断、每日 3 分钟靶向练习、60 秒点亮挑战、光点与勋章。数据全在本机，不收集任何数据。">
+<title>开灯 LightsUp · 孩子卡在哪里，开灯照给你看</title>
+<meta name="description" content="开灯 LightsUp：数学/语文/英语三学科微观盲点诊断、每日 3 分钟靶向练习、60 秒点亮挑战、光点与勋章。数据全在本机，不收集任何数据。">
 <style>
 /* Landing keeps the public site's third-party-free rule: system fonts only, no external requests. */
 :root{color-scheme:light}
@@ -99,6 +99,20 @@ a{color:#92400e}
 .coin.off svg{color:#C3CBB2}
 .coin small{display:block;font-size:9.5px;color:#637362;margin-top:3px;line-height:1.3}
 
+/* store-parity highlights (LIG-802: mirror App Store listing claims) */
+.hl{display:grid;grid-template-columns:1fr 1fr;gap:14px;padding:6px 0 30px}
+.hl-item{background:#fff;border:1px solid #e6e2d8;border-radius:16px;padding:16px 18px}
+.hl-item h2{font-size:1.02rem;line-height:1.4;margin:0 0 6px}
+.hl-item p{font-size:.9rem;color:#5a5a5e;margin:0}
+
+/* get / TestFlight CTA (LIG-802) */
+.get{padding:34px 0 8px;text-align:center}
+.get h2{font-size:1.42rem;line-height:1.4;margin:0 0 8px}
+.get p{font-size:.98rem;color:#5a5a5e;margin:0 auto 18px;max-width:34em}
+.getbtns{display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap}
+.tfbtn{display:inline-block;width:auto;padding:12px 26px;text-decoration:none}
+.soon{font-size:.85rem;color:#86868b;border:1px dashed #d8d2c2;border-radius:12px;padding:8px 14px}
+
 /* privacy strip + footer */
 .priv{margin:26px 0 0;display:flex;flex-wrap:wrap;align-items:center;gap:10px 18px;background:#fdf3e3;border:1px solid #ecdfc3;border-radius:14px;padding:16px 20px}
 .priv strong{font-size:1rem}
@@ -112,6 +126,7 @@ footer a{margin:0 6px}
   .feat:nth-of-type(even) .ftxt{order:0}
   .hero h1{font-size:1.7rem}
   .shot{width:min(360px,100%)}
+  .hl{grid-template-columns:1fr}
 }
 </style>
 </head>
@@ -121,7 +136,7 @@ footer a{margin:0 6px}
 <header class="top">
   <a class="brand" href="./">
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3a6 6 0 0 0-3.6 10.8c.6.5 1 1.2 1.1 2l.1.7h4.8l.1-.7c.1-.8.5-1.5 1.1-2A6 6 0 0 0 12 3z" fill="currentColor"/><rect x="10" y="17.5" width="4" height="1.6" rx=".8" fill="currentColor"/><rect x="10.4" y="19.9" width="3.2" height="1.6" rx=".8" fill="currentColor"/></svg>
-    开灯 LightUp
+    开灯 LightsUp
   </a>
   <div class="langs" role="group" aria-label="Language / 语言"><button type="button" data-lang="zh-Hans">简体</button><button type="button" data-lang="zh-Hant">繁體</button><button type="button" data-lang="en">EN</button></div>
 </header>
@@ -185,7 +200,7 @@ footer a{margin:0 6px}
       <i class="lit"></i><i class="lit"></i><i class="lit"></i><i class="lit"></i><i class="lit"></i><i class="lit"></i><i class="lit"></i><i class="lit"></i><i class="lit"></i><i class="lit"></i><i class="lit"></i><i class="lit"></i><i class="lit"></i><i class="lit"></i><i class="lit"></i>
       <i class="lit"></i><i class="lit"></i><i class="lit"></i><i class="lit"></i><i class="lit"></i><i class="lit"></i><i class="lit"></i><i class="lit"></i><i class="lit"></i><i class="lit"></i><i class="lit"></i><i class="lit"></i><i class="lit"></i><i class="lit"></i><i class="lit"></i>
       <i class="lit"></i><i class="lit"></i><i class="lit"></i><i class="lit"></i><i class="lit"></i><i class="lit"></i><i class="lit"></i><i class="lit"></i><i class="lit"></i><i class="lit"></i><i class="lit"></i><i class="lit"></i><i class="lit"></i><i class="lit"></i><i class="lit"></i>
-      <i class="lit"></i><i class="lit"></i><i class="lit"></i><i class="lit"></i><i class="lit"></i><i class="lit"></i><i class="warm"></i><i class="warm"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+      <i class="lit"></i><i class="lit"></i><i class="lit"></i><i class="lit"></i><i class="lit"></i><i class="warm"></i><i class="warm"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
     </div>
     <div class="glass chalq">
       <div class="q">13 − 6 = <b>7</b></div>
@@ -229,13 +244,43 @@ footer a{margin:0 6px}
   </div></div>
 </section>
 
+<!-- store-parity highlights (LIG-802): claims from the App Store listing -->
+<section class="hl">
+  <div class="hl-item">
+    <h2 data-i="hl1t">跟着学校教中文</h2>
+    <p data-i="hl1p">简体／繁体、拼音／注音／粤拼，粤语／普通话朗读；繁体写字有正确笔顺描红。</p>
+  </div>
+  <div class="hl-item">
+    <h2 data-i="hl2t">多孩家庭</h2>
+    <p data-i="hl2p">每个孩子独立档案：知识树进度、练习记录、光点、勋章完全独立。</p>
+  </div>
+  <div class="hl-item">
+    <h2 data-i="hl3t">内容与解锁</h2>
+    <p data-i="hl3p">内置数学一年级、语文拼音＋识字 300、英语 E1–E6 起步包。数学永久免费；语文与英语随 Pro 解锁（年费享 7 天免费试用、家人共享）。</p>
+  </div>
+  <div class="hl-item">
+    <h2 data-i="hl4t">为 3–9 岁设计</h2>
+    <p data-i="hl4p">家长视图长按解锁，孩子乱点打不开；无广告、无排名，光点只增不减。</p>
+  </div>
+</section>
+
+<!-- get / TestFlight (LIG-802) -->
+<section class="get">
+  <h2 data-i="gett">现在就能用上</h2>
+  <p data-i="getp">TestFlight 公测进行中，欢迎加入；App Store 上架准备中，届时将在除中国大陆外的 App Store 地区提供。</p>
+  <div class="getbtns">
+    <a class="btn tfbtn" href="https://testflight.apple.com/join/jCXSHnXJ" data-i="getcta">通过 TestFlight 参与公测</a>
+    <span class="soon" data-i="getsoon">App Store · 上架准备中</span>
+  </div>
+</section>
+
 <div class="priv">
   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 10V8a5 5 0 0 1 10 0v2h1a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h1zm2 0h6V8a3 3 0 0 0-6 0v2z" fill="currentColor"/></svg>
   <strong data-i="priv">数据全在本机 · 不收集任何数据</strong>
   <a href="./privacy.html" data-i="privl">隐私政策 ›</a>
 </div>
 
-<footer data-i="footer">© 2026 开灯 LightUp · <a href="./privacy.html">隐私政策</a> · <a href="./support.html">支持与常见问题</a></footer>
+<footer data-i="footer">© 2026 开灯 LightsUp · <a href="./privacy.html">隐私政策</a> · <a href="./support.html">支持与常见问题</a></footer>
 
 </div>
 <script src="./i18n.js"></script>
